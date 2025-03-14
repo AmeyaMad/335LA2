@@ -1,8 +1,9 @@
 package modelTest;
 
+import model.Song;
 import org.junit.Test;
-import src.model.Album;
-import src.model.MusicStore;
+import model.Album;
+import model.MusicStore;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,26 @@ public class AlbumTest {
                 "A Whisper\n" +
                 "A Rush of Blood to the Head\n" +
                 "Amsterdam\n";
+        assertEquals(ex, a.toString());
+    }
+
+    @Test
+    public void testRemoveSong() {
+        Song s = new Song("A Whisper", "Coldplay", "A Rush of Blood to the Head");
+        a.removeSong(s);
+//        System.out.print(a.toString());
+        String ex = "Album: A Rush of Blood to the Head, Artist: Coldplay, Genre: Alternative\n" +
+                "Politik\n" +
+                "In My Place\n" +
+                "God Put a Smile Upon Your Face\n" +
+                "The Scientist\n" +
+                "Clocks\n" +
+                "Daylight\n" +
+                "Green Eyes\n" +
+                "Warning Sign\n" +
+                "A Rush of Blood to the Head\n" +
+                "Amsterdam\n";
+
         assertEquals(ex, a.toString());
     }
 }

@@ -26,11 +26,25 @@ public class LibraryModel {
     // need to add a ArrayList for playlists
     private ArrayList<PlayList> playlistByName;
 
+    // we need an instance of musicstore
     private MusicStore musicStore;
 
+    //list of all favorite songs
     private ArrayList<Song> favoriteSongs;
 
+    //hashmap of all songs by ratings, so we can print them easily
     private HashMap<Rating, ArrayList<Song>> songsByRating;
+
+    //new list of most recently played songs
+    private ArrayList<Song> mostRecentSongs;
+
+
+    private ArrayList<Song> mostFrequentSongs;
+
+
+
+
+
 
     // constructor will create an empty LibraryModel
     public LibraryModel(MusicStore musicStore) {
@@ -445,5 +459,35 @@ public class LibraryModel {
 
         return sb.toString();
     }
+
+    // will remove a song from user library
+    //@pre
+//    public String removeSongFromLibrary(String title, String artist) {
+//        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+//        if (sWeWant == null) {
+//            return "There is no song that has this name by this artist in the music store\n";
+//        }
+//
+//        //remove from songsByTitle
+//        ArrayList<Song> songs = this.songsByTitle.get(title);
+//        songs.remove(sWeWant);
+//
+//        //remove song from songsByArtist
+//        songs = this.songsByArtist.get(artist);
+//        songs.remove(sWeWant);
+//
+//        //remove song from albums by artist
+//        ArrayList<Album> albums = this.albumsByArtist.get(artist);
+//        for(Album album : albums) {
+//            album.removeSong(sWeWant);
+//        }
+//
+//        //remove song from albums by title
+//        albums = this.albumsByTitle.get(sWeWant.getAlbum());
+//        for(Album album : albums) {
+//            album.removeSong(sWeWant);
+//        }
+//
+//    }
 
 }

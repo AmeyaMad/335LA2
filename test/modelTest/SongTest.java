@@ -1,7 +1,7 @@
 package modelTest;
 
 import org.junit.Test;
-import src.model.Song;
+import model.Song;
 
 import static org.junit.Assert.*;
 

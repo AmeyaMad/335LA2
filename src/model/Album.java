@@ -44,6 +44,13 @@ public class Album {
         return new ArrayList<Song>(songs);
     }
 
+    public String removeSong(Song song) {
+        if(songs.remove(song)){
+            return "Song removed";
+        }
+        return "Song not removed";
+    }
+
     // over riding to string to make sure it prints information
     @Override
     public String toString() {

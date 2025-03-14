@@ -1,7 +1,7 @@
 package modelTest;
 
 import org.junit.Test;
-import src.model.*;
+import model.*;
 
 import java.util.ArrayList;
 

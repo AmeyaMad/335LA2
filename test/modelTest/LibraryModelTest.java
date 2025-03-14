@@ -1,9 +1,10 @@
 package modelTest;
 
 import org.junit.Test;
-import src.model.*;
+import model.*;
 
 import static org.junit.Assert.*;
+
 
 public class LibraryModelTest {
     MusicStore musicStore = new MusicStore("albums");
