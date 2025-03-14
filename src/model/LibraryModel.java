@@ -5,23 +5,19 @@
 
 package model;
 
+import model.userLibModels.UserLibraryAlbums;
+import model.userLibModels.UserLibrarySongs;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class LibraryModel {
     // Setting up Instance Variables... will be similar to MusicStore
     // using hashmpas so it is easy to lookup
-    // using arraylist as there could be multiple songs with the same title
-    private HashMap<String, ArrayList<Song>> songsByTitle;
 
-    // using arraylist as there could be multiple songs by the same artist
-    private HashMap<String, ArrayList<Song>> songsByArtist;
 
-    // using arraylist as there could be multiple albums with the same title
-    private HashMap<String, ArrayList<Album>> albumsByTitle;
-
-    // using arraylist as there could be multiple albums by the same artist
-    private HashMap<String, ArrayList<Album>> albumsByArtist;
+    private UserLibrarySongs userLibrarySongs;
+    private UserLibraryAlbums userLibraryAlbums;
 
     // need to add a ArrayList for playlists
     private ArrayList<PlayList> playlistByName;
@@ -48,8 +44,7 @@ public class LibraryModel {
 
     // constructor will create an empty LibraryModel
     public LibraryModel(MusicStore musicStore) {
-        songsByTitle = new HashMap<>();
-        songsByArtist = new HashMap<>();
+
         albumsByTitle = new HashMap<>();
         albumsByArtist = new HashMap<>();
         playlistByName = new ArrayList<>();
@@ -62,26 +57,6 @@ public class LibraryModel {
 
     // now making getter functions for all the maps
 
-    // gets song by title
-    // @pre title != null
-    public ArrayList<Song> getSongsByTitle(String title) {
-        if (songsByTitle.containsKey(title)) {
-            return new ArrayList<Song>(songsByTitle.get(title));
-        } else {
-            return null;
-        }
-    }
-
-    // gets song by artist
-    // @pre artist != null
-    public ArrayList<Song> getSongsByArtist(String artist) {
-        if (songsByArtist.containsKey(artist)) {
-            return new ArrayList<Song>(songsByArtist.get(artist));
-        } else {
-            return null;
-        }
-
-    }
 
     // gets albums by title
     // @pre title != null
@@ -166,57 +141,11 @@ public class LibraryModel {
     // making a functions that returns string in a clean format bc default
     // ArrayList.toString() stinks!
 
-    // string for songs by title
-    // @pre title != null
-    public String getSongsByTitleString(String title) {
-        if (getSongsByTitle(title) == null) {
-            return "This Song is not in the songs list\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Song s : getSongsByTitle(title)) {
-            sb.append(s.toString()).append("\n");
-        }
-        return sb.toString();
-    }
 
-    // string for songs by artist
-    // @pre artist != null
-    public String getSongsByArtistString(String artist) {
-        if (getSongsByArtist(artist) == null) {
-            return "There are no songs by this artist\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Song s : getSongsByArtist(artist)) {
-            sb.append(s.toString()).append("\n");
-        }
-        return sb.toString();
-    }
 
-    // string for albums by title
-    // @pre title != null
-    public String getAlbumsByTitleString(String title) {
-        if (getAlbumsByTitle(title) == null) {
-            return "There are no albums of this name\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Album a : getAlbumsByTitle(title)) {
-            sb.append(a.toString()).append("\n");
-        }
-        return sb.toString();
-    }
 
-    // string for albums by artist
-    // @pre artist != null
-    public String getAlbumsByArtistString(String artist) {
-        if (getAlbumsByArtist(artist) == null) {
-            return "There are no albums by this artist\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (Album a : getAlbumsByArtist(artist)) {
-            sb.append(a.toString()).append("\n");
-        }
-        return sb.toString();
-    }
+
+
 
     // adding in playlist function for string
     // @pre title != null
@@ -232,69 +161,9 @@ public class LibraryModel {
         return sb.toString();
     }
 
-    // now we need new logic for adding and removing songs/albums
-    // @pre title != null
-    public String addSongToLibrary(String title, String artist) {
-        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
 
-        if (sWeWant == null) {
-            return "This song is not in the Music Store\n";
-        }
 
-        if (songsByTitle.containsKey(title)) {
-            for (Song s : songsByTitle.get(title)) {
-                if (s.getArtist().equals(artist)) {
-                    return "This song is already in the list\n";
-                }
-            }
-            songsByTitle.get(title).add(sWeWant);
-        } else {
-            ArrayList<Song> newSongs = new ArrayList<Song>();
-            newSongs.add(sWeWant);
-            songsByTitle.put(title, newSongs);
-        }
 
-        if (songsByArtist.containsKey(artist)) {
-            songsByArtist.get(artist).add(sWeWant);
-        } else {
-            ArrayList<Song> tmp = new ArrayList<>();
-            tmp.add(sWeWant);
-            songsByArtist.put(artist, tmp);
-        }
-        return "Successfully added song to the library\n";
-    }
-
-    // Logic for adding albums to library
-    // @pre title != null
-    public boolean addAlbumToLibrary(String title) {
-        ArrayList<Album> albums = musicStore.getAlbumsByTitle(title);
-        if (albums == null) {
-            return false; // album is not found in musicStore
-        }
-
-        Album a = albums.get(0); // since there is only 1 album of each name
-
-        if (albumsByTitle.containsKey(title)) {
-            return false; // Album is already in the library
-        }
-
-        // Add album by title
-        albumsByTitle.put(title, albums);
-
-        // Add album to artist-based lookup
-        if (albumsByArtist.containsKey(a.getArtist())) {
-            albumsByArtist.get(a.getArtist()).add(a);
-        } else {
-            ArrayList<Album> newAlbumList = new ArrayList<>();
-            newAlbumList.add(a);
-            albumsByArtist.put(a.getArtist(), newAlbumList);
-        }
-
-        for (Song s : a.getSongs()) {
-            addSongToLibrary(s.getTitle(), s.getArtist());
-        }
-        return true;
-    }
 
     // this will be used to add songs to favorite
     // @pre title != null && artist != null

@@ -9,13 +9,17 @@ import model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class UserLibrarySongs {
     //declaring both of these hashmaps
     private HashMap<String, ArrayList<Song>> songsByTitle;
     private HashMap<String, ArrayList<Song>> songsByArtist;
 
+    //Constructor
+    public UserLibrarySongs() {
+        songsByTitle = new HashMap<>();
+        songsByArtist = new HashMap<>();
+    }
 
     //this will take in a song object and add it to both songsByTitle and songsByArtist
     //@pre song != null
@@ -45,6 +49,66 @@ public class UserLibrarySongs {
     //@pre title != null
     public ArrayList<Song> getSongsByArtist(String artist) {
         return new ArrayList<>(songsByArtist.get(artist));
+    }
+
+    // string for songs by title
+    // @pre title != null
+    public String songsByTitleToString(String title) {
+        if (getSongsByTitle(title) == null) {
+            return "This Song is not in the songs list\n";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Song s : getSongsByTitle(title)) {
+            sb.append(s.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    //TODO deal with other issues like we had with the albums one with null pointer execption when reutrning
+
+    // string for songs by artist
+    // @pre artist != null
+    public String SongsByArtistToString(String artist) {
+        if (getSongsByArtist(artist) == null) {
+            return "There are no songs by this artist\n";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Song s : getSongsByArtist(artist)) {
+            sb.append(s.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    // now we need new logic for adding and removing songs/albums
+    // @pre title != null
+    public String addSongToLibrary(String title, String artist) {
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+
+        if (sWeWant == null) {
+            return "This song is not in the Music Store\n";
+        }
+
+        if (songsByTitle.containsKey(title)) {
+            for (Song s : songsByTitle.get(title)) {
+                if (s.getArtist().equals(artist)) {
+                    return "This song is already in the list\n";
+                }
+            }
+            songsByTitle.get(title).add(sWeWant);
+        } else {
+            ArrayList<Song> newSongs = new ArrayList<Song>();
+            newSongs.add(sWeWant);
+            songsByTitle.put(title, newSongs);
+        }
+
+        if (songsByArtist.containsKey(artist)) {
+            songsByArtist.get(artist).add(sWeWant);
+        } else {
+            ArrayList<Song> tmp = new ArrayList<>();
+            tmp.add(sWeWant);
+            songsByArtist.put(artist, tmp);
+        }
+        return "Successfully added song to the library\n";
     }
 }
 
