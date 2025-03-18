@@ -23,38 +23,70 @@ public class UserLibrarySongs {
 
     //this will take in a song object and add it to both songsByTitle and songsByArtist
     //@pre song != null
-    public void addSong(Song song) {
+    public void addSongToLibrary(Song song) {
         //TODO make sure this is in the video
         //After dealing with the if(empty) blah blah last time i checked to see if there was an easier
         //way to place things into the hashmap and found the .computeIfAbsent function
 
         /*As far as I understand it, it allows you to do something (in this case create a new arraylist)
-        if the value for the given key is not there in one line of code I guess the k is needed
+        if the value for the given key is not there in one line of code. I guess the k is needed
         as a placeholder and is the standard, but is never actually used
          */
-        songsByTitle.computeIfAbsent(song.getTitle(), k -> new ArrayList<Song>());
-        songsByTitle.get(song.getTitle()).add(song);
+        songsByTitle.computeIfAbsent(song.getTitle(), k -> new ArrayList<>());
+        if (!songsByTitle.get(song.getTitle()).contains(song)) {
+            songsByTitle.get(song.getTitle()).add(song);
+        }
 
-        songsByArtist.computeIfAbsent(song.getArtist(), k -> new ArrayList<Song>());
-        songsByArtist.get(song.getArtist()).add(song);
+        songsByArtist.computeIfAbsent(song.getArtist(), k -> new ArrayList<>());
+        if (!songsByArtist.get(song.getArtist()).contains(song)) {
+            songsByArtist.get(song.getArtist()).add(song);
+        }
+    }
+
+    // will remove a song from user library
+    //@pre title != null & artist != null
+    public String removeSongFromLibrary(String title, String artist) {
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+        if (sWeWant == null) {
+            return "There is no song that has this name by this artist in the music store\n";
+        }
+
+        //remove from songsByTitle
+        ArrayList<Song> songs = this.songsByTitle.get(title);
+        songs.remove(sWeWant);
+
+        //remove song from songsByArtist
+        songs = this.songsByArtist.get(artist);
+        songs.remove(sWeWant);
+
+        //TODO implement remove in the albums class to make this shit work
+
+        return "TEMP";
     }
 
     //Returns an ArrayList of all songs with name `title`
     //@pre title != null
-    public ArrayList<Song> getSongsByTitle(String title) {
+    private ArrayList<Song> getSongsByTitle(String title) {
+        if(songsByTitle.get(title) == null) {
+            return new ArrayList<>();
+        }
         return new ArrayList<>(songsByTitle.get(title));
     }
 
     //Returns an ArrayList of all songs with name `title`
     //@pre title != null
-    public ArrayList<Song> getSongsByArtist(String artist) {
+    private ArrayList<Song> getSongsByArtist(String artist) {
+        if(songsByArtist.get(artist) == null) {
+            return new ArrayList<>();
+        }
         return new ArrayList<>(songsByArtist.get(artist));
     }
+
 
     // string for songs by title
     // @pre title != null
     public String songsByTitleToString(String title) {
-        if (getSongsByTitle(title) == null) {
+        if (getSongsByTitle(title).isEmpty()) {
             return "This Song is not in the songs list\n";
         }
         StringBuilder sb = new StringBuilder();
@@ -64,12 +96,10 @@ public class UserLibrarySongs {
         return sb.toString();
     }
 
-    //TODO deal with other issues like we had with the albums one with null pointer execption when reutrning
-
     // string for songs by artist
     // @pre artist != null
-    public String SongsByArtistToString(String artist) {
-        if (getSongsByArtist(artist) == null) {
+    public String songsByArtistToString(String artist) {
+        if (getSongsByArtist(artist).isEmpty()) {
             return "There are no songs by this artist\n";
         }
         StringBuilder sb = new StringBuilder();
@@ -79,37 +109,7 @@ public class UserLibrarySongs {
         return sb.toString();
     }
 
-    // now we need new logic for adding and removing songs/albums
-    // @pre title != null
-    public String addSongToLibrary(String title, String artist) {
-        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
 
-        if (sWeWant == null) {
-            return "This song is not in the Music Store\n";
-        }
-
-        if (songsByTitle.containsKey(title)) {
-            for (Song s : songsByTitle.get(title)) {
-                if (s.getArtist().equals(artist)) {
-                    return "This song is already in the list\n";
-                }
-            }
-            songsByTitle.get(title).add(sWeWant);
-        } else {
-            ArrayList<Song> newSongs = new ArrayList<Song>();
-            newSongs.add(sWeWant);
-            songsByTitle.put(title, newSongs);
-        }
-
-        if (songsByArtist.containsKey(artist)) {
-            songsByArtist.get(artist).add(sWeWant);
-        } else {
-            ArrayList<Song> tmp = new ArrayList<>();
-            tmp.add(sWeWant);
-            songsByArtist.put(artist, tmp);
-        }
-        return "Successfully added song to the library\n";
-    }
 
     // need functions to list all songs, albums, and playlists
     // will return a string with all songs in the Library
@@ -127,6 +127,18 @@ public class UserLibrarySongs {
                         .append("\n");
             }
         }
+        return sb.toString();
+    }
+
+    // lists all artists in the songs
+    public String listAllArtistsToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Artists List ===\n");
+
+        for (String artist : songsByArtist.keySet()) {
+            sb.append(artist).append("\n");
+        }
+
         return sb.toString();
     }
 }

@@ -12,62 +12,62 @@ public class LibraryModelTest {
 
     @Test
     public void testAddandGetSongToLibrary() {
-        libraryModel.addSongToLibrary("Daylight", "Coldplay");
+        libraryModel.addSong("Daylight", "Coldplay");
         assertEquals("Song - Title: Daylight, Artist: Coldplay, Album: A Rush of Blood to the Head\n",
-                libraryModel.getSongsByTitleString("Daylight"));
+                libraryModel.getSongsByTitle("Daylight"));
     }
 
     @Test
     public void testBadInputGetSongFromLibrary() {
-        libraryModel.addSongToLibrary("Daylight", "Coldplay");
+        libraryModel.addSong("Daylight", "Coldplay");
         assertEquals("This Song is not in the songs list\n",
-                libraryModel.getSongsByTitleString("BLAH"));
+                libraryModel.getSongsByTitle("BLAH"));
     }
 
     @Test
     public void testAddSongToLibraryWhenNotInStore() {
-        assertEquals("This song is not in the Music Store\n", libraryModel.addSongToLibrary("YELLOWBRICKROAD", "IDK"));
+        assertEquals("This song is not in the Music Store\n", libraryModel.addSong("YELLOWBRICKROAD", "IDK"));
     }
 
     @Test
     // this will be for the 2 lulabys
     public void testAddingTwoSongsSameName() {
-        libraryModel.addSongToLibrary("Lullaby", "Leonard Cohen");
-        libraryModel.addSongToLibrary("Lullaby", "OneRepublic");
+        libraryModel.addSong("Lullaby", "Leonard Cohen");
+        libraryModel.addSong("Lullaby", "OneRepublic");
 
         String ex = "Song - Title: Lullaby, Artist: Leonard Cohen, Album: Old Ideas\n" +
                 "Song - Title: Lullaby, Artist: OneRepublic, Album: Waking Up\n";
-        assertEquals(ex, libraryModel.getSongsByTitleString("Lullaby"));
+        assertEquals(ex, libraryModel.getSongsByTitle("Lullaby"));
     }
 
     @Test
     // this will be for adding 2 of the same song
     public void testAddingSameSong2Times() {
-        libraryModel.addSongToLibrary("Lullaby", "Leonard Cohen");
-        assertEquals("This song is already in the list\n", libraryModel.addSongToLibrary("Lullaby", "Leonard Cohen"));
+        libraryModel.addSong("Lullaby", "Leonard Cohen");
+        assertEquals("This song is already in the list\n", libraryModel.addSong("Lullaby", "Leonard Cohen"));
     }
 
     @Test
     public void testAddingSongRightNameWrongArtist() {
-        assertEquals("This song is not in the Music Store\n", libraryModel.addSongToLibrary("After Party", "Adele"));
+        assertEquals("This song is not in the Music Store\n", libraryModel.addSong("After Party", "Adele"));
     }
 
     @Test
     public void testGetSongsByArtist() {
-        libraryModel.addSongToLibrary("I'll Be Waiting", "Adele");
-        libraryModel.addSongToLibrary("I Found a Boy", "Adele");
-        libraryModel.addSongToLibrary("First Love", "Adele");
+        libraryModel.addSong("I'll Be Waiting", "Adele");
+        libraryModel.addSong("I Found a Boy", "Adele");
+        libraryModel.addSong("First Love", "Adele");
 
         String ex = "Song - Title: I'll Be Waiting, Artist: Adele, Album: 21\n" +
                 "Song - Title: I Found a Boy, Artist: Adele, Album: 21\n" +
                 "Song - Title: First Love, Artist: Adele, Album: 19\n";
-        assertEquals(ex, libraryModel.getSongsByArtistString("Adele"));
+        assertEquals(ex, libraryModel.getSongsByArtist("Adele"));
     }
 
     @Test
     public void testGetSongsByArtistEmpty() {
-        libraryModel.addSongToLibrary("First Love", "Adele");
-        assertEquals("There are no songs by this artist\n", libraryModel.getSongsByArtistString("Kanye"));
+        libraryModel.addSong("First Love", "Adele");
+        assertEquals("There are no songs by this artist\n", libraryModel.getSongsByArtist("Kanye"));
     }
 
     @Test
@@ -190,7 +190,7 @@ public class LibraryModelTest {
     @Test
     public void testListAllSongsString() {
         libraryModel.addAlbumToLibrary("Begin Again");
-        libraryModel.addSongToLibrary("The Cave", "Mumford & Sons");
+        libraryModel.addSong("The Cave", "Mumford & Sons");
         String ex = "=== Songs List ===\n" +
                 "Title: It Was You, Artist: Norah Jones, Album: Begin Again\n" +
                 "Title: Wintertime, Artist: Norah Jones, Album: Begin Again\n" +

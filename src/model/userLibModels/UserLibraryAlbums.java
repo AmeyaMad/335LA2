@@ -77,7 +77,7 @@ public class UserLibraryAlbums {
 
     // string for albums by artist
     // @pre artist != null
-    public String AlbumsByArtistToString(String artist) {
+    public String albumsByArtistToString(String artist) {
         if (getAlbumsByArtist(artist) == null) {
             return "There are no albums by this artist\n";
         }
@@ -116,7 +116,7 @@ public class UserLibraryAlbums {
         }
 
         for (Song s : a.getSongs()) {
-            userLibrarySongs.addSongToLibrary(s.getTitle(), s.getArtist());
+            userLibrarySongs.addSongToLibrary(s);
         }
         return true;
     }
@@ -137,6 +137,24 @@ public class UserLibraryAlbums {
         }
 
         return sb.toString();
+    }
+
+    public void removeSongFromAlbums(String title, String artist) {
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+        if (sWeWant == null) {
+            return;
+        }
+
+        for(Album a : albumsByArtist.get(artist)) {
+          a.removeSong(sWeWant);
+        }
+
+        for(String k : albumsByTitle.keySet()) {
+            ArrayList<Album> albums = albumsByTitle.get(k);
+            for(Album a : albums) {
+                a.removeSong(sWeWant);
+            }
+        }
     }
 }
 

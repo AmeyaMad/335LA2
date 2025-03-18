@@ -256,7 +256,7 @@ public class View {
         scanner.nextLine(); // Consume newline
         String title = scanner.nextLine();
 
-        String result = lib.getSongsByTitleString(title);
+        String result = lib.getSongsByTitle(title);
         System.out.println(result);
     }
 
@@ -265,7 +265,7 @@ public class View {
         scanner.nextLine(); // Consume newline
         String artist = scanner.nextLine();
 
-        String result = lib.getSongsByArtistString(artist);
+        String result = lib.getSongsByArtist(artist);
         System.out.println(result);
     }
 
@@ -306,7 +306,7 @@ public class View {
         String artist = scanner.nextLine();
 
         // Call the LibraryModel function
-        String result = lib.addSongToLibrary(title, artist);
+        String result = lib.addSong(title, artist);
 
         // Print the result message
         System.out.println(result);

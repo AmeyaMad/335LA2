@@ -9,94 +9,65 @@ import model.userLibModels.UserLibraryAlbums;
 import model.userLibModels.UserLibrarySongs;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class LibraryModel {
     // Setting up Instance Variables... will be similar to MusicStore
     // using hashmpas so it is easy to lookup
 
-
     private UserLibrarySongs userLibrarySongs;
     private UserLibraryAlbums userLibraryAlbums;
-
-
 
     // we need an instance of musicstore
     private MusicStore musicStore;
 
-    //list of all favorite songs
-    private ArrayList<Song> favoriteSongs;
-
-    //hashmap of all songs by ratings, so we can print them easily
-    private HashMap<Rating, ArrayList<Song>> songsByRating;
-
-    //new list of most recently played songs
+    // new list of most recently played songs
     private ArrayList<Song> mostRecentSongs;
-
 
     private ArrayList<Song> mostFrequentSongs;
 
-
-
-
-
-
     // constructor will create an empty LibraryModel
     public LibraryModel(MusicStore musicStore) {
+        this.musicStore = musicStore;
 
         userLibrarySongs = new UserLibrarySongs();
         userLibraryAlbums = new UserLibraryAlbums(userLibrarySongs);
 
-        playlistByName = new ArrayList<>();
-        this.musicStore = musicStore;
-        favoriteSongs = new ArrayList<Song>();
-        songsByRating = new HashMap<>();
     }
 
-    //for a song that is in the database: print the song title, the artist, and the album it’s on
-    //@pre title != null
+    public String addSong(String title, String artist) {
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+        if (sWeWant == null) {
+            return "There are no songs of this name by this artist\n";
+        }
+
+        userLibrarySongs.addSongToLibrary(sWeWant);
+        return "Added song " + sWeWant.getTitle() + " to the library\n";
+    }
+
+    // prints all songs with the same title
+    // @pre title != null
     public String getSongsByTitle(String title) {
         return userLibrarySongs.songsByTitleToString(title);
     }
 
-    //for an album: print the album information and a list of the songs in the appropriate order
+    // prints all songs from same artist
+    // @pre artist != null
+    public String getSongsByArtist(String artist) {
+        return userLibrarySongs.songsByArtistToString(artist);
+    }
+
+    // for an album: print the album information and a list of the songs in the
+    // appropriate order
     // @pre title != null
     public String getAlbumsByTitle(String album) {
         return userLibraryAlbums.albumsByTitleToString(album);
     }
 
-
-
-    // gets albums by artist
+    // prints all albums by an artist
     // @pre artist != null
-    public ArrayList<Album> getAlbumsByArtist(String artist) {
-        if (albumsByArtist.containsKey(artist)) {
-            return new ArrayList<Album>(albumsByArtist.get(artist));
-        } else {
-            return null;
-        }
+    public String getAlbumsByArtist(String artist) {
+        return userLibraryAlbums.albumsByArtistToString(artist);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     // this will be used to add songs to favorite
     // @pre title != null && artist != null
@@ -200,63 +171,5 @@ public class LibraryModel {
         }
         return sb.toString();
     }
-
-
-
-
-
-    // will return a string with all playlists in the Library
-    public String listAllPlaylistsString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Playlists List ===\n");
-
-        for (PlayList p : playlistByName) {
-            sb.append("Playlist: ").append(p.getName()).append("\n");
-        }
-
-        return sb.toString();
-    }
-
-    // needs to be able to lsit all artist so doing here
-    public String listAllArtistsString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Artists List ===\n");
-
-        for (String artist : songsByArtist.keySet()) {
-            sb.append(artist).append("\n");
-        }
-
-        return sb.toString();
-    }
-
-    // will remove a song from user library
-    //@pre
-//    public String removeSongFromLibrary(String title, String artist) {
-//        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
-//        if (sWeWant == null) {
-//            return "There is no song that has this name by this artist in the music store\n";
-//        }
-//
-//        //remove from songsByTitle
-//        ArrayList<Song> songs = this.songsByTitle.get(title);
-//        songs.remove(sWeWant);
-//
-//        //remove song from songsByArtist
-//        songs = this.songsByArtist.get(artist);
-//        songs.remove(sWeWant);
-//
-//        //remove song from albums by artist
-//        ArrayList<Album> albums = this.albumsByArtist.get(artist);
-//        for(Album album : albums) {
-//            album.removeSong(sWeWant);
-//        }
-//
-//        //remove song from albums by title
-//        albums = this.albumsByTitle.get(sWeWant.getAlbum());
-//        for(Album album : albums) {
-//            album.removeSong(sWeWant);
-//        }
-//
-//    }
 
 }
