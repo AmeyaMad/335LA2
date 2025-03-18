@@ -19,8 +19,7 @@ public class LibraryModel {
     private UserLibrarySongs userLibrarySongs;
     private UserLibraryAlbums userLibraryAlbums;
 
-    // need to add a ArrayList for playlists
-    private ArrayList<PlayList> playlistByName;
+
 
     // we need an instance of musicstore
     private MusicStore musicStore;
@@ -45,28 +44,28 @@ public class LibraryModel {
     // constructor will create an empty LibraryModel
     public LibraryModel(MusicStore musicStore) {
 
-        albumsByTitle = new HashMap<>();
-        albumsByArtist = new HashMap<>();
+        userLibrarySongs = new UserLibrarySongs();
+        userLibraryAlbums = new UserLibraryAlbums(userLibrarySongs);
+
         playlistByName = new ArrayList<>();
         this.musicStore = musicStore;
         favoriteSongs = new ArrayList<Song>();
         songsByRating = new HashMap<>();
     }
 
-    // using the same logic and code from the MusicStore class for searching
-
-    // now making getter functions for all the maps
-
-
-    // gets albums by title
-    // @pre title != null
-    public ArrayList<Album> getAlbumsByTitle(String title) {
-        if (albumsByTitle.containsKey(title)) {
-            return new ArrayList<Album>(albumsByTitle.get(title));
-        } else {
-            return null;
-        }
+    //for a song that is in the database: print the song title, the artist, and the album it’s on
+    //@pre title != null
+    public String getSongsByTitle(String title) {
+        return userLibrarySongs.songsByTitleToString(title);
     }
+
+    //for an album: print the album information and a list of the songs in the appropriate order
+    // @pre title != null
+    public String getAlbumsByTitle(String album) {
+        return userLibraryAlbums.albumsByTitleToString(album);
+    }
+
+
 
     // gets albums by artist
     // @pre artist != null
@@ -78,68 +77,6 @@ public class LibraryModel {
         }
     }
 
-    // adding in playlist function
-    // @pre name != null
-    public PlayList getPlaylistByName(String name) {
-        PlayList out = null;
-        for (PlayList playlist : playlistByName) {
-            if (playlist.getName().equals(name)) {
-                out = playlist;
-            }
-        }
-        return out;
-    }
-
-    // this will create a playlist in the music library
-    // @pre name != null
-    public void createPlaylist(String name) {
-        playlistByName.add(new PlayList(name));
-    }
-
-    // this function allows us to add a song to our playlist within our library
-    // @pre title != null && artist != null && playlistName != null
-    public String addSongToPlaylist(String title, String artist, String playlistName) {
-        PlayList p = null;
-        for (PlayList playlist : playlistByName) {
-            if (playlist.getName().equals(playlistName)) {
-                p = playlist;
-            }
-        }
-        if (p == null) {
-            return "Playlist Not Found";
-        }
-
-        Song s = HelperFunctions.getSongByTitleAndArtist(title, artist);
-        if (s == null) {
-            return "Song Not Found";
-        }
-
-        p.addSong(s);
-        return "Song added to Playlist Successfully";
-    }
-
-    // this function allows us to remove a song from within a playlist that is in
-    // our library
-    // @pre title != null && artist != null && playlistName != null
-    public void removeSongFromPlaylist(String title, String artist, String playlistName) {
-        PlayList p = null;
-        for (PlayList playlist : playlistByName) {
-            if (playlist.getName().equals(playlistName)) {
-                p = playlist;
-            }
-        }
-        if (p == null) {
-            return;
-        }
-        Song s = HelperFunctions.getSongByTitleAndArtist(title, artist);
-        if (s == null) {
-            return;
-        }
-        p.removeSong(s);
-    }
-
-    // making a functions that returns string in a clean format bc default
-    // ArrayList.toString() stinks!
 
 
 
@@ -147,19 +84,15 @@ public class LibraryModel {
 
 
 
-    // adding in playlist function for string
-    // @pre title != null
-    public String getPlaylistByNameString(String title) {
-        if (getPlaylistByName(title) == null) {
-            return "There are no playlists by this title\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Playlist: ").append(title).append(" ===\n");
-        for (Song s : getPlaylistByName(title).getSongs()) {
-            sb.append(s.toString()).append("\n");
-        }
-        return sb.toString();
-    }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -268,42 +201,9 @@ public class LibraryModel {
         return sb.toString();
     }
 
-    // need functions to list all songs, albums, and playlists
-    // will return a string with all songs in the Library
-    public String listAllSongsString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Songs List ===\n");
 
-        for (String title : songsByTitle.keySet()) {
-            ArrayList<Song> songs = songsByTitle.get(title); // gets list of songs with this title
 
-            for (Song song : songs) { // add to string for each song
-                sb.append("Title: ").append(song.getTitle())
-                        .append(", Artist: ").append(song.getArtist())
-                        .append(", Album: ").append(song.getAlbum())
-                        .append("\n");
-            }
-        }
-        return sb.toString();
-    }
 
-    // will return a string with all Albums in the Library
-    public String listAllAlbumsString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Albums List ===\n");
-
-        for (String albumName : albumsByTitle.keySet()) {
-            ArrayList<Album> albums = albumsByTitle.get(albumName); // gets list of albums with this title
-
-            for (Album album : albums) { // add to string for each album
-                sb.append("Album: ").append(album.getTitle())
-                        .append(", Artist: ").append(album.getArtist())
-                        .append("\n");
-            }
-        }
-
-        return sb.toString();
-    }
 
     // will return a string with all playlists in the Library
     public String listAllPlaylistsString() {

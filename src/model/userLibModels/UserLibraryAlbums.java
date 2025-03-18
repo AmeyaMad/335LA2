@@ -64,7 +64,7 @@ public class UserLibraryAlbums {
 
     // string for albums by title
     // @pre title != null
-    public String AlbumsByTitleToString(String title) {
+    public String albumsByTitleToString(String title) {
         if (getAlbumsByTitle(title) == null) {
             return "There are no albums of this name\n";
         }
@@ -119,6 +119,24 @@ public class UserLibraryAlbums {
             userLibrarySongs.addSongToLibrary(s.getTitle(), s.getArtist());
         }
         return true;
+    }
+
+    // will return a string with all Albums in the Library
+    public String allAlbumsToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Albums List ===\n");
+
+        for (String albumName : albumsByTitle.keySet()) {
+            ArrayList<Album> albums = albumsByTitle.get(albumName); // gets list of albums with this title
+
+            for (Album album : albums) { // add to string for each album
+                sb.append("Album: ").append(album.getTitle())
+                        .append(", Artist: ").append(album.getArtist())
+                        .append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 }
 

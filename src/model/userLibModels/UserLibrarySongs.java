@@ -110,5 +110,24 @@ public class UserLibrarySongs {
         }
         return "Successfully added song to the library\n";
     }
+
+    // need functions to list all songs, albums, and playlists
+    // will return a string with all songs in the Library
+    public String allSongToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Songs List ===\n");
+
+        for (String title : songsByTitle.keySet()) {
+            ArrayList<Song> songs = songsByTitle.get(title); // gets list of songs with this title
+
+            for (Song song : songs) { // add to string for each song
+                sb.append("Title: ").append(song.getTitle())
+                        .append(", Artist: ").append(song.getArtist())
+                        .append(", Album: ").append(song.getAlbum())
+                        .append("\n");
+            }
+        }
+        return sb.toString();
+    }
 }
 
