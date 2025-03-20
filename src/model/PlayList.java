@@ -60,6 +60,8 @@ public class PlayList {
         songs.remove(s);
     }
 
+    //adds albums to playlist
+    //@pre title != null
     public String addAlbum(String title) {
         Album a = HelperFunctions.getAlbumByTitle(title);
         if (a == null) {
@@ -72,5 +74,19 @@ public class PlayList {
             songs.add(new Song(song));
         }
         return "Album added";
+    }
+
+    //returns if the playlist is empty or not
+    public boolean isEmpty() {
+        return songs.isEmpty();
+    }
+
+    //returns size of playlist
+    public int size() {
+        return songs.size();
+    }
+
+    public void removeLastSong() {
+        songs.removeLast();
     }
 }

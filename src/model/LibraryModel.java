@@ -30,9 +30,7 @@ public class LibraryModel {
     private ArrayList<Song> mostFrequentSongs;
 
     // constructor will create an empty LibraryModel
-    public LibraryModel(MusicStore musicStore) {
-        this.musicStore = musicStore;
-
+    public LibraryModel() {
         userLibrarySongs = new UserLibrarySongs();
         userLibraryAlbums = new UserLibraryAlbums(userLibrarySongs);
         userLibraryPlaylists = new UserLibraryPlaylists();
@@ -72,10 +70,6 @@ public class LibraryModel {
         return userLibrarySongs.songsByArtistToString(artist);
     }
 
-    // TODO
-    // public boolean addSongToLibrary(String title, String artist) {
-    // return
-    // }
 
     public String listAllSongs() {
         return userLibrarySongs.allSongToString();

@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class LibraryModelTest {
     MusicStore musicStore = new MusicStore("albums");
-    LibraryModel libraryModel = new LibraryModel(musicStore);
+    LibraryModel libraryModel = new LibraryModel();
 
     @Test
     public void testAddandGetSongToLibrary() {

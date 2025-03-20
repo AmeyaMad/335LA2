@@ -14,10 +14,11 @@ public class UserLibraryPlaylists {
 
     public UserLibraryPlaylists() {
         playlistByName = new ArrayList<>();
+        createPlaylist("10 Most Recent");
     }
 
     // this will create a playlist in the music library
-    // @pre name != null
+    // @pre name != null && playlistsByName.contains(name) == false
     public void createPlaylist(String name) {
         playlistByName.add(new PlayList(name));
     }
@@ -82,6 +83,9 @@ public class UserLibraryPlaylists {
         if (getPlaylistByName(title) == null) {
             return "There are no playlists by this title\n";
         }
+        if(getPlaylistByName(title).isEmpty()){
+            return "Playlist is Empty";
+        }
         StringBuilder sb = new StringBuilder();
         sb.append("=== Playlist: ").append(title).append(" ===\n");
         for (Song s : getPlaylistByName(title).getSongs()) {
@@ -101,4 +105,17 @@ public class UserLibraryPlaylists {
         }
         return sb.toString();
     }
+
+    public void addToMostRecent(Song s){
+        for(PlayList playlist : playlistByName){
+            if(playlist.getName().equals("10 Most Recent")){
+                if(playlist.size() >= 10){
+                    playlist.removeLastSong();
+                }
+                playlist.addSong(s);
+            }
+        }
+    }
+
+
 }
