@@ -11,34 +11,33 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserLibraryAlbums {
-    //declaring both of these hashmaps
+    // declaring both of these hashmaps
     private HashMap<String, ArrayList<Album>> albumsByTitle;
     private HashMap<String, ArrayList<Album>> albumsByArtist;
     private UserLibrarySongs userLibrarySongs;
 
-    //Constructor
+    // Constructor
     public UserLibraryAlbums(UserLibrarySongs ulSongs) {
         albumsByTitle = new HashMap<>();
         albumsByArtist = new HashMap<>();
         userLibrarySongs = ulSongs;
     }
 
-
-    //Returns an ArrayList of all songs with name `title`
-    //@pre title != null
+    // Returns an ArrayList of all songs with name `title`
+    // @pre title != null
     public ArrayList<Album> getAlbumsByTitle(String title) {
         if (!albumsByTitle.containsKey(title)) {
-            //return an empty arraylist if does not exist
+            // return an empty arraylist if does not exist
             return new ArrayList<>();
         }
         return new ArrayList<>(albumsByTitle.get(title));
     }
 
-    //Returns an ArrayList of all songs with name `title`
-    //@pre title != null
+    // Returns an ArrayList of all songs with name `title`
+    // @pre title != null
     public ArrayList<Album> getAlbumsByArtist(String artist) {
         if (!albumsByArtist.containsKey(artist)) {
-            //return an empty arraylist if does not exist
+            // return an empty arraylist if does not exist
             return new ArrayList<>();
         }
         return new ArrayList<>(albumsByArtist.get(artist));
@@ -75,7 +74,7 @@ public class UserLibraryAlbums {
     public boolean addAlbumToLibrary(String title) {
         Album a = HelperFunctions.getAlbumByTitle(title);
         if (a == null) {
-            return false;   //album is not in music store
+            return false; // album is not in music store
         }
 
         if (albumsByTitle.containsKey(title)) {
@@ -127,17 +126,15 @@ public class UserLibraryAlbums {
             return;
         }
 
-        for(Album a : albumsByArtist.get(artist)) {
-          a.removeSong(sWeWant);
+        for (Album a : albumsByArtist.get(artist)) {
+            a.removeSong(sWeWant);
         }
 
-        for(String k : albumsByTitle.keySet()) {
+        for (String k : albumsByTitle.keySet()) {
             ArrayList<Album> albums = albumsByTitle.get(k);
-            for(Album a : albums) {
+            for (Album a : albums) {
                 a.removeSong(sWeWant);
             }
         }
     }
 }
-
-

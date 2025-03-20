@@ -45,7 +45,7 @@ public class Album {
     }
 
     public String removeSong(Song song) {
-        if(songs.remove(song)){
+        if (songs.remove(song)) {
             return "Song removed";
         }
         return "Song not removed";

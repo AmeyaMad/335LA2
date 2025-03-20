@@ -40,17 +40,17 @@ public class LibraryModel {
     }
 
     /*
-    ===================================================================
-    ===================================================================
-
-    Song section
-
-    ===================================================================
-    ===================================================================
+     * ===================================================================
+     * ===================================================================
+     * 
+     * Song section
+     * 
+     * ===================================================================
+     * ===================================================================
      */
 
-    //adding a song to the library
-    //@pre title != null && artist != null
+    // adding a song to the library
+    // @pre title != null && artist != null
     public String addSong(String title, String artist) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
@@ -72,28 +72,27 @@ public class LibraryModel {
         return userLibrarySongs.songsByArtistToString(artist);
     }
 
-    //TODO
-//    public boolean addSongToLibrary(String title, String artist) {
-//        return
-//    }
+    // TODO
+    // public boolean addSongToLibrary(String title, String artist) {
+    // return
+    // }
 
-    public String listAllSongs(){
+    public String listAllSongs() {
         return userLibrarySongs.allSongToString();
     }
 
-    public String listAllArtists(){
+    public String listAllArtists() {
         return userLibrarySongs.listAllArtistsToString();
     }
 
-
-        /*
-    ===================================================================
-    ===================================================================
-
-    Album section
-
-    ===================================================================
-    ===================================================================
+    /*
+     * ===================================================================
+     * ===================================================================
+     * 
+     * Album section
+     * 
+     * ===================================================================
+     * ===================================================================
      */
 
     // for an album: print the album information and a list of the songs in the
@@ -109,31 +108,31 @@ public class LibraryModel {
         return userLibraryAlbums.albumsByArtistToString(artist);
     }
 
-    //adds album to library
-    //@pre album != null
+    // adds album to library
+    // @pre album != null
     public boolean addAlbumToLibrary(String album) {
         return userLibraryAlbums.addAlbumToLibrary(album);
     }
 
-    //returns a string of all the albums formatted nicely
-    public String listAllAlbums(){
+    // returns a string of all the albums formatted nicely
+    public String listAllAlbums() {
         return userLibraryAlbums.allAlbumsToString();
     }
 
-    //removes a song from an album (used when removing specific songs from library)
-    //@pre title != null && artist != null
+    // removes a song from an album (used when removing specific songs from library)
+    // @pre title != null && artist != null
     public void removeSongFromAlbum(String title, String artist) {
         userLibrarySongs.removeSongFromLibrary(title, artist);
     }
 
-        /*
-    ===================================================================
-    ===================================================================
-
-    Playlist section
-
-    ===================================================================
-    ===================================================================
+    /*
+     * ===================================================================
+     * ===================================================================
+     * 
+     * Playlist section
+     * 
+     * ===================================================================
+     * ===================================================================
      */
 
     // this will create a playlist in the music library
@@ -148,7 +147,8 @@ public class LibraryModel {
         return userLibraryPlaylists.addSongToPlaylist(title, artist, playlistName);
     }
 
-    // this function allows us to remove a song from within a playlist that is in our library
+    // this function allows us to remove a song from within a playlist that is in
+    // our library
     // @pre title != null && artist != null && playlistName != null
     public void removeSongFromPlaylist(String title, String artist, String playlistName) {
         userLibraryPlaylists.removeSongFromPlaylist(title, artist, playlistName);
@@ -166,13 +166,13 @@ public class LibraryModel {
     }
 
     /*
-    ===================================================================
-    ===================================================================
-
-    Favorites and Ratings section
-
-    ===================================================================
-    ===================================================================
+     * ===================================================================
+     * ===================================================================
+     * 
+     * Favorites and Ratings section
+     * 
+     * ===================================================================
+     * ===================================================================
      */
 
     // this will be used to add songs to favorite
@@ -186,14 +186,12 @@ public class LibraryModel {
         return userLibraryRatingsAndFav.getFavoritesToString();
     }
 
-
     // this function will take in details of a song and set its rating,
     // if the rating is 5 it will automatically get placed into the favorites
     // @pre title != null && artist != null && rating != null
     public String rateSong(String title, String artist, Rating rating) {
         return userLibraryRatingsAndFav.rateSong(title, artist, rating);
     }
-
 
     // returns a nice string with all songs of that rating
     // @pre r != null

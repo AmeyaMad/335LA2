@@ -11,12 +11,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserLibraryRatingsAndFav {
-    //list of all favorite songs
+    // list of all favorite songs
     private ArrayList<Song> favoriteSongs;
 
-    //hashmap of all songs by ratings, so we can print them easily
+    // hashmap of all songs by ratings, so we can print them easily
     private HashMap<Rating, ArrayList<Song>> songsByRating;
-
 
     public UserLibraryRatingsAndFav() {
         favoriteSongs = new ArrayList<>();
@@ -71,7 +70,6 @@ public class UserLibraryRatingsAndFav {
         }
         return sb.toString();
     }
-
 
     // this function will take in details of a song and set its rating,
     // if the rating is 5 it will automatically get placed into the favorites

@@ -57,26 +57,25 @@ public class Song {
         return "Song - Title: " + title + ", Artist: " + artist + ", Album: " + album;
     }
 
-
-    //TODO Show this in video to show why coverage is so low
+    // TODO Show this in video to show why coverage is so low
 
     // Overriding the equals function to make .contains for an arrayList work
     // @pre o != null && o.getClass() == this.getClass()
     @Override
     public boolean equals(Object o) {
 
-         if (this == o) {
-         return true;
-         }
-         if (o == null || getClass() != o.getClass()) {
-         return false;
-         }
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Song song = (Song) o;
         return this.title != null && this.title.equals(song.title) && this.artist != null
                 && this.artist.equals(song.artist) && this.album != null && this.album.equals(song.album);
     }
 
-    //overriding hashcode as well to keep contract
+    // overriding hashcode as well to keep contract
     @Override
     public int hashCode() {
         String songConcat = title + artist + album;

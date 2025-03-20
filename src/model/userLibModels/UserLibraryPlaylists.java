@@ -76,7 +76,6 @@ public class UserLibraryPlaylists {
         return out;
     }
 
-
     // adding in playlist function for string
     // @pre title != null
     public String playlistByNameToString(String title) {
