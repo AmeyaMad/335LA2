@@ -24,7 +24,7 @@ public class PlayListTest {
         pl.addSong(iAint);
         String ex = "Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
                 "Title: I Ain't the Same, Artist: Alabama Shakes, Album: Boys & Girls\n";
-        assertEquals(ex, pl.getSongsString());
+        assertEquals(ex, pl.toString());
     }
 
     @Test
@@ -33,8 +33,8 @@ public class PlayListTest {
         pl.addSong(iAint);
         pl.removeSong(hereWeGo);
         String ex = "Title: I Ain't the Same, Artist: Alabama Shakes, Album: Boys & Girls\n";
-        assertEquals(ex, pl.getSongsString());
-        // System.out.print(pl.getSongsString());
+        assertEquals(ex, pl.toString());
+        System.out.print(pl);
     }
 
     @Test
@@ -42,7 +42,7 @@ public class PlayListTest {
         pl.addSong(iAint);
         pl.addSong(iAint);
         String ex = "Title: I Ain't the Same, Artist: Alabama Shakes, Album: Boys & Girls\n";
-        assertEquals(ex, pl.getSongsString());
+        assertEquals(ex, pl.toString());
     }
 
     @Test
@@ -66,7 +66,7 @@ public class PlayListTest {
                 "Title: Cup of Sorrow, Artist: Amos Lee, Album: Mission Bell\n" +
                 "Title: Clear Blue Eyes (feat. Lucinda Williams), Artist: Amos Lee, Album: Mission Bell\n" +
                 "Title: Behind Me Now, Artist: Amos Lee, Album: Mission Bell\n";
-        assertEquals(ex, pl.getSongsString());
+        assertEquals(ex, pl.toString());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class PlayListTest {
                 "Title: Be Mine, Artist: Alabama Shakes, Album: Boys & Girls\n" +
                 "Title: On Your Way, Artist: Alabama Shakes, Album: Boys & Girls\n" +
                 "Title: Heavy Chevy (Bonus Track), Artist: Alabama Shakes, Album: Boys & Girls\n";
-        assertEquals(ex, pl.getSongsString());
+        assertEquals(ex, pl.toString());
     }
 
 }

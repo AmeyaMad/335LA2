@@ -66,4 +66,10 @@ public class AlbumTest {
 
         assertEquals(ex, a.toString());
     }
+
+    @Test
+    public void testingRemovingSongWhenNotThere(){
+        Song s = new Song("Boom", "Baya", "A Rush of Blood to the Head");
+        assertEquals("Song not removed", a.removeSong(s));
+    }
 }

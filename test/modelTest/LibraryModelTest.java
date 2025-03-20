@@ -26,17 +26,19 @@ public class LibraryModelTest {
 
     @Test
     public void testAddSongToLibraryWhenNotInStore() {
-        assertEquals("This song is not in the Music Store\n", libraryModel.addSong("YELLOWBRICKROAD", "IDK"));
+        assertEquals("This song is not in the Music Store\n", libraryModel.addSong("Word", "Random"));
     }
 
     @Test
-    // this will be for the 2 lulabys
+    // this will be for the 2 lullaby
     public void testAddingTwoSongsSameName() {
         libraryModel.addSong("Lullaby", "Leonard Cohen");
         libraryModel.addSong("Lullaby", "OneRepublic");
 
-        String ex = "Song - Title: Lullaby, Artist: Leonard Cohen, Album: Old Ideas\n" +
-                "Song - Title: Lullaby, Artist: OneRepublic, Album: Waking Up\n";
+        String ex = """
+                Song - Title: Lullaby, Artist: Leonard Cohen, Album: Old Ideas
+                Song - Title: Lullaby, Artist: OneRepublic, Album: Waking Up
+                """;
         assertEquals(ex, libraryModel.getSongsByTitle("Lullaby"));
     }
 
@@ -58,9 +60,11 @@ public class LibraryModelTest {
         libraryModel.addSong("I Found a Boy", "Adele");
         libraryModel.addSong("First Love", "Adele");
 
-        String ex = "Song - Title: I'll Be Waiting, Artist: Adele, Album: 21\n" +
-                "Song - Title: I Found a Boy, Artist: Adele, Album: 21\n" +
-                "Song - Title: First Love, Artist: Adele, Album: 19\n";
+        String ex = """
+                Song - Title: I'll Be Waiting, Artist: Adele, Album: 21
+                Song - Title: I Found a Boy, Artist: Adele, Album: 21
+                Song - Title: First Love, Artist: Adele, Album: 19
+                """;
         assertEquals(ex, libraryModel.getSongsByArtist("Adele"));
     }
 
@@ -73,61 +77,65 @@ public class LibraryModelTest {
     @Test
     public void testGetAlbumsByName() {
         libraryModel.addAlbumToLibrary("Begin Again");
-        String ex = "Album: Begin Again, Artist: Norah Jones, Genre: Pop\n" +
-                "My Heart Is Full\n" +
-                "Begin Again\n" +
-                "It Was You\n" +
-                "A Song with No Name\n" +
-                "Uh Oh\n" +
-                "Wintertime\n" +
-                "Just a Little Bit\n" +
-                "\n";
-        assertEquals(ex, libraryModel.getAlbumsByTitleString("Begin Again"));
+        String ex = """
+                Album: Begin Again, Artist: Norah Jones, Genre: Pop
+                My Heart Is Full
+                Begin Again
+                It Was You
+                A Song with No Name
+                Uh Oh
+                Wintertime
+                Just a Little Bit
+                
+                """;
+        assertEquals(ex, libraryModel.getAlbumsByTitle("Begin Again"));
     }
 
     @Test
     public void testGetAlbumsByNameEmpty() {
-        assertEquals("There are no albums of this name\n", libraryModel.getAlbumsByTitleString("na"));
+        assertEquals("There are no albums of this name\n", libraryModel.getAlbumsByTitle("na"));
     }
 
     @Test
     public void testGetAlbumsByArtist() {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("21");
-        String ex = "Album: 19, Artist: Adele, Genre: Pop\n" +
-                "Daydreamer\n" +
-                "Best for Last\n" +
-                "Chasing Pavements\n" +
-                "Cold Shoulder\n" +
-                "Crazy for You\n" +
-                "Melt My Heart to Stone\n" +
-                "First Love\n" +
-                "Right as Rain\n" +
-                "Make You Feel My Love\n" +
-                "My Same\n" +
-                "Tired\n" +
-                "Hometown Glory\n" +
-                "\n" +
-                "Album: 21, Artist: Adele, Genre: Pop\n" +
-                "Rolling in the Deep\n" +
-                "Rumour Has It\n" +
-                "Turning Tables\n" +
-                "Don't You Remember\n" +
-                "Set Fire to the Rain\n" +
-                "He Won't Go\n" +
-                "Take It All\n" +
-                "I'll Be Waiting\n" +
-                "One and Only\n" +
-                "Lovesong\n" +
-                "Someone Like You\n" +
-                "I Found a Boy\n" +
-                "\n";
-        assertEquals(ex, libraryModel.getAlbumsByArtistString("Adele"));
+        String ex = """
+                Album: 19, Artist: Adele, Genre: Pop
+                Daydreamer
+                Best for Last
+                Chasing Pavements
+                Cold Shoulder
+                Crazy for You
+                Melt My Heart to Stone
+                First Love
+                Right as Rain
+                Make You Feel My Love
+                My Same
+                Tired
+                Hometown Glory
+                
+                Album: 21, Artist: Adele, Genre: Pop
+                Rolling in the Deep
+                Rumour Has It
+                Turning Tables
+                Don't You Remember
+                Set Fire to the Rain
+                He Won't Go
+                Take It All
+                I'll Be Waiting
+                One and Only
+                Lovesong
+                Someone Like You
+                I Found a Boy
+                
+                """;
+        assertEquals(ex, libraryModel.getAlbumsByArtist("Adele"));
     }
 
     @Test
     public void testGetAlbumsByArtistEmpty() {
-        assertEquals("There are no albums by this artist\n", libraryModel.getAlbumsByArtistString("na"));
+        assertEquals("There are no albums by this artist\n", libraryModel.getAlbumsByArtist("na"));
     }
 
     @Test
@@ -144,22 +152,28 @@ public class LibraryModelTest {
     @Test
     public void testAddingSongToFavorite() {
         libraryModel.addSongToFavorites("You Ain't Alone", "Alabama Shakes");
-        String exFav = "=== Favorites ===\n" +
-                "Song - Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls\n";
+        String exFav = """
+                === Favorites ===
+                Song - Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls
+                """;
 
-        String exRate = "=== Songs of Rating FIVE ===\n" +
-                "Song - Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls\n";
-        assertEquals(exFav, libraryModel.getFavoritesString());
-        assertEquals(exRate, libraryModel.getSongsByRatingString(Rating.FIVE).toString());
+        String exRate = """
+                === Songs of Rating FIVE ===
+                Song - Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls
+                """;
+        assertEquals(exFav, libraryModel.getFavoritesToString());
+        assertEquals(exRate, libraryModel.getSongsByRatingString(Rating.FIVE));
     }
 
     @Test
     public void testAddingSongToFavByRating5() {
         libraryModel.rateSong("The Cave", "Mumford & Sons", Rating.FIVE);
         libraryModel.addSongToFavorites("You Ain't Alone", "Alabama Shakes");
-        String ex = "=== Songs of Rating FIVE ===\n" +
-                "Song - Title: The Cave, Artist: Mumford & Sons, Album: Sigh No More\n" +
-                "Song - Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls\n";
+        String ex = """
+                === Songs of Rating FIVE ===
+                Song - Title: The Cave, Artist: Mumford & Sons, Album: Sigh No More
+                Song - Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls
+                """;
         assertEquals(ex, libraryModel.getSongsByRatingString(Rating.FIVE));
 
     }
@@ -167,7 +181,7 @@ public class LibraryModelTest {
     @Test
     public void testNoSongsInFavoriteOrOfRating() {
         assertEquals("There are no songs of this rating\n", libraryModel.getSongsByRatingString(Rating.ONE));
-        assertEquals("There are no favorites\n", libraryModel.getFavoritesString());
+        assertEquals("There are no favorites\n", libraryModel.getFavoritesToString());
     }
 
     @Test
@@ -191,16 +205,18 @@ public class LibraryModelTest {
     public void testListAllSongsString() {
         libraryModel.addAlbumToLibrary("Begin Again");
         libraryModel.addSong("The Cave", "Mumford & Sons");
-        String ex = "=== Songs List ===\n" +
-                "Title: It Was You, Artist: Norah Jones, Album: Begin Again\n" +
-                "Title: Wintertime, Artist: Norah Jones, Album: Begin Again\n" +
-                "Title: A Song with No Name, Artist: Norah Jones, Album: Begin Again\n" +
-                "Title: Just a Little Bit, Artist: Norah Jones, Album: Begin Again\n" +
-                "Title: Begin Again, Artist: Norah Jones, Album: Begin Again\n" +
-                "Title: Uh Oh, Artist: Norah Jones, Album: Begin Again\n" +
-                "Title: The Cave, Artist: Mumford & Sons, Album: Sigh No More\n" +
-                "Title: My Heart Is Full, Artist: Norah Jones, Album: Begin Again\n";
-        assertEquals(ex, libraryModel.listAllSongsString());
+        String ex = """
+                === Songs List ===
+                Title: It Was You, Artist: Norah Jones, Album: Begin Again
+                Title: Wintertime, Artist: Norah Jones, Album: Begin Again
+                Title: A Song with No Name, Artist: Norah Jones, Album: Begin Again
+                Title: Just a Little Bit, Artist: Norah Jones, Album: Begin Again
+                Title: Begin Again, Artist: Norah Jones, Album: Begin Again
+                Title: The Cave, Artist: Mumford & Sons, Album: Sigh No More
+                Title: Uh Oh, Artist: Norah Jones, Album: Begin Again
+                Title: My Heart Is Full, Artist: Norah Jones, Album: Begin Again
+                """;
+        assertEquals(ex, libraryModel.listAllSongs());
     }
 
     @Test
@@ -208,11 +224,13 @@ public class LibraryModelTest {
         libraryModel.addAlbumToLibrary("21");
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
-        String ex = "=== Albums List ===\n" +
-                "Album: 19, Artist: Adele\n" +
-                "Album: Don't Mess With the Dragon, Artist: Ozomatli\n" +
-                "Album: 21, Artist: Adele\n";
-        assertEquals(ex, libraryModel.listAllAlbumsString());
+        String ex = """
+                === Albums List ===
+                Album: 19, Artist: Adele
+                Album: Don't Mess With the Dragon, Artist: Ozomatli
+                Album: 21, Artist: Adele
+                """;
+        assertEquals(ex, libraryModel.listAllAlbums());
     }
 
     @Test
@@ -220,9 +238,11 @@ public class LibraryModelTest {
         libraryModel.createPlaylist("My Playlist");
         libraryModel.addSongToPlaylist("Hundido En Un Rincon", "Mana", "My Playlist");
         // System.out.print(libraryModel.getPlaylistByNameString("My Playlist"));
-        String ex = "=== Playlist: My Playlist ===\n" +
-                "Song - Title: Hundido En Un Rincon, Artist: Mana, Album: Cuando Los Angeles Lloran\n";
-        assertEquals(ex, libraryModel.getPlaylistByNameString("My Playlist"));
+        String ex = """
+                === Playlist: My Playlist ===
+                Song - Title: Hundido En Un Rincon, Artist: Mana, Album: Cuando Los Angeles Lloran
+                """;
+        assertEquals(ex, libraryModel.playlistByToNameString("My Playlist"));
     }
 
     @Test
@@ -230,7 +250,7 @@ public class LibraryModelTest {
         libraryModel.createPlaylist("My Playlist1");
         // System.out.print(libraryModel.getPlaylistByNameString("My"));
         String ex = "There are no playlists by this title\n";
-        assertEquals(ex, libraryModel.getPlaylistByNameString("My"));
+        assertEquals(ex, libraryModel.playlistByToNameString("My"));
     }
 
     @Test
@@ -239,11 +259,13 @@ public class LibraryModelTest {
         libraryModel.createPlaylist("My Playlist2");
         libraryModel.createPlaylist("My Playlist3");
         // System.out.print(libraryModel.listAllPlaylistsString());
-        String ex = "=== Playlists List ===\n" +
-                "Playlist: My Playlist1\n" +
-                "Playlist: My Playlist2\n" +
-                "Playlist: My Playlist3\n";
-        assertEquals(ex, libraryModel.listAllPlaylistsString());
+        String ex = """
+                === Playlists List ===
+                Playlist: My Playlist1
+                Playlist: My Playlist2
+                Playlist: My Playlist3
+                """;
+        assertEquals(ex, libraryModel.listAllPlaylists());
     }
 
     @Test
@@ -267,9 +289,11 @@ public class LibraryModelTest {
 
         libraryModel.removeSongFromPlaylist("I Found a Boy", "Adele", "My Playlist1");
         // System.out.print(libraryModel.getPlaylistByNameString("My Playlist1"));
-        String ex = "=== Playlist: My Playlist1 ===\n" +
-                "Song - Title: One and Only, Artist: Adele, Album: 21\n";
-        assertEquals(ex, libraryModel.getPlaylistByNameString("My Playlist1"));
+        String ex = """
+                === Playlist: My Playlist1 ===
+                Song - Title: One and Only, Artist: Adele, Album: 21
+                """;
+        assertEquals(ex, libraryModel.playlistByToNameString("My Playlist1"));
 
     }
 
@@ -279,11 +303,13 @@ public class LibraryModelTest {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
 
-        String expected = "=== Artists List ===\n" +
-                "Ozomatli\n" +
-                "Adele\n";
+        String expected = """
+                === Artists List ===
+                Ozomatli
+                Adele
+                """;
 
-        assertEquals(expected, libraryModel.listAllArtistsString());
+        assertEquals(expected, libraryModel.listAllArtists());
     }
 
 }

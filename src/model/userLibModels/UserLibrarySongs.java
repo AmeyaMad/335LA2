@@ -23,7 +23,7 @@ public class UserLibrarySongs {
 
     //this will take in a song object and add it to both songsByTitle and songsByArtist
     //@pre song != null
-    public void addSongToLibrary(Song song) {
+    public String addSongToLibrary(Song song) {
         //TODO make sure this is in the video
         //After dealing with the if(empty) blah blah last time i checked to see if there was an easier
         //way to place things into the hashmap and found the .computeIfAbsent function
@@ -32,15 +32,24 @@ public class UserLibrarySongs {
         if the value for the given key is not there in one line of code. I guess the k is needed
         as a placeholder and is the standard, but is never actually used
          */
+
+        String out = "Added song " + song.getTitle() + " to the library\n";
         songsByTitle.computeIfAbsent(song.getTitle(), k -> new ArrayList<>());
         if (!songsByTitle.get(song.getTitle()).contains(song)) {
             songsByTitle.get(song.getTitle()).add(song);
+        }
+        else{
+            out = "This song is already in the list\n";
         }
 
         songsByArtist.computeIfAbsent(song.getArtist(), k -> new ArrayList<>());
         if (!songsByArtist.get(song.getArtist()).contains(song)) {
             songsByArtist.get(song.getArtist()).add(song);
         }
+        else{
+            out = "This song is already in the list\n";
+        }
+        return out;
     }
 
     // will remove a song from user library

@@ -274,7 +274,7 @@ public class View {
         scanner.nextLine(); // Consume newline
         String title = scanner.nextLine();
 
-        String result = lib.getAlbumsByTitleString(title);
+        String result = lib.getAlbumsByTitle(title);
         System.out.println(result);
     }
 
@@ -283,7 +283,7 @@ public class View {
         scanner.nextLine(); // Consume newline
         String artist = scanner.nextLine();
 
-        String result = lib.getAlbumsByArtistString(artist);
+        String result = lib.getAlbumsByArtist(artist);
         System.out.println(result);
     }
 
@@ -292,7 +292,7 @@ public class View {
         scanner.nextLine(); // Consume newline
         String playlistName = scanner.nextLine();
 
-        String result = lib.getPlaylistByNameString(playlistName);
+        String result = lib.playlistByToNameString(playlistName);
         System.out.println(result);
     }
 
@@ -333,7 +333,7 @@ public class View {
      */
     private void listAllLibrarySongs() {
         System.out.println("\n=== Songs in Library ===");
-        System.out.println(lib.listAllSongsString());
+        System.out.println(lib.listAllSongs());
     }
 
     /**
@@ -341,14 +341,14 @@ public class View {
      */
     private void listAllLibraryAlbums() {
         System.out.println("\n=== Albums in Library ===");
-        System.out.println(lib.listAllAlbumsString());
+        System.out.println(lib.listAllAlbums());
     }
 
     /**
      * Lists all artists in the user's library.
      */
     private void listAllLibraryArtists() {
-        System.out.println(lib.listAllArtistsString());
+        System.out.println(lib.listAllArtists());
     }
 
     /**
@@ -361,7 +361,7 @@ public class View {
     // TODO
     private void listAllFavoriteSongs() {
         System.out.println("\n=== Favorite Songs ===");
-        System.out.println(lib.getFavoritesString());
+        System.out.println(lib.getFavoritesToString());
     }
 
     /// EMPTY SO I CAN TEST
@@ -471,7 +471,7 @@ public class View {
         scanner.nextLine(); // Consume newline
         String playlistName = scanner.nextLine();
 
-        String result = lib.getPlaylistByNameString(playlistName);
+        String result = lib.playlistByToNameString(playlistName);
         System.out.println(result);
     }
 
@@ -480,7 +480,7 @@ public class View {
      */
     private void listAllLibraryPlaylists() {
         System.out.println("\n=== Playlists in Library ===");
-        System.out.println(lib.listAllPlaylistsString());
+        System.out.println(lib.listAllPlaylists());
     }
 
     /**

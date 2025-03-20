@@ -9,10 +9,10 @@ import model.*;
 
 import java.util.ArrayList;
 
-public class UserLibrayPlaylists {
+public class UserLibraryPlaylists {
     private ArrayList<PlayList> playlistByName; // using an arraylist to store playlists
 
-    public UserLibrayPlaylists() {
+    public UserLibraryPlaylists() {
         playlistByName = new ArrayList<>();
     }
 
@@ -66,7 +66,7 @@ public class UserLibrayPlaylists {
 
     // adding in playlist function
     // @pre name != null
-    public PlayList getPlaylistByName(String name) {
+    private PlayList getPlaylistByName(String name) {
         PlayList out = null;
         for (PlayList playlist : playlistByName) {
             if (playlist.getName().equals(name)) {
@@ -87,6 +87,18 @@ public class UserLibrayPlaylists {
         sb.append("=== Playlist: ").append(title).append(" ===\n");
         for (Song s : getPlaylistByName(title).getSongs()) {
             sb.append(s.toString()).append("\n");
+        }
+        return sb.toString();
+    }
+
+    // returns a string off all playlists
+    public String allPlaylistsToString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Playlists List ===\n");
+        for (PlayList playlist : playlistByName) {
+            sb.append("Playlist: ");
+            sb.append(playlist.getName());
+            sb.append("\n");
         }
         return sb.toString();
     }

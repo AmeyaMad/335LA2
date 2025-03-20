@@ -57,6 +57,9 @@ public class Song {
         return "Song - Title: " + title + ", Artist: " + artist + ", Album: " + album;
     }
 
+
+    //TODO Show this in video to show why coverage is so low
+
     // Overriding the equals function to make .contains for an arrayList work
     // @pre o != null && o.getClass() == this.getClass()
     @Override

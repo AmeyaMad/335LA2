@@ -24,24 +24,6 @@ public class UserLibraryAlbums {
     }
 
 
-    //this will take in a song object and add it to both albumsByTitle and albumsByArtist
-    //@pre a != null
-    public void addAlbum(Album a) {
-        //TODO make sure this is in the video
-        //After dealing with the if(empty) blah blah last time i checked to see if there was an easier
-        //way to place things into the hashmap and found the .computeIfAbsent function
-
-        /*As far as I understand it, it allows you to do something (in this case create a new arraylist)
-        if the value for the given key is not there in one line of code I guess the k is needed
-        as a placeholder and is the standard, but is never actually used
-         */
-        albumsByTitle.computeIfAbsent(a.getTitle(), k -> new ArrayList<Album>());
-        albumsByTitle.get(a.getTitle()).add(a);
-
-        albumsByArtist.computeIfAbsent(a.getArtist(), k -> new ArrayList<Album>());
-        albumsByArtist.get(a.getArtist()).add(a);
-    }
-
     //Returns an ArrayList of all songs with name `title`
     //@pre title != null
     public ArrayList<Album> getAlbumsByTitle(String title) {
@@ -65,7 +47,7 @@ public class UserLibraryAlbums {
     // string for albums by title
     // @pre title != null
     public String albumsByTitleToString(String title) {
-        if (getAlbumsByTitle(title) == null) {
+        if (getAlbumsByTitle(title).isEmpty()) {
             return "There are no albums of this name\n";
         }
         StringBuilder sb = new StringBuilder();
@@ -78,7 +60,7 @@ public class UserLibraryAlbums {
     // string for albums by artist
     // @pre artist != null
     public String albumsByArtistToString(String artist) {
-        if (getAlbumsByArtist(artist) == null) {
+        if (getAlbumsByArtist(artist).isEmpty()) {
             return "There are no albums by this artist\n";
         }
         StringBuilder sb = new StringBuilder();

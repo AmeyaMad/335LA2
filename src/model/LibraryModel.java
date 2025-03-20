@@ -6,7 +6,9 @@
 package model;
 
 import model.userLibModels.UserLibraryAlbums;
+import model.userLibModels.UserLibraryRatingsAndFav;
 import model.userLibModels.UserLibrarySongs;
+import model.userLibModels.UserLibraryPlaylists;
 
 import java.util.ArrayList;
 
@@ -16,6 +18,8 @@ public class LibraryModel {
 
     private UserLibrarySongs userLibrarySongs;
     private UserLibraryAlbums userLibraryAlbums;
+    private UserLibraryPlaylists userLibraryPlaylists;
+    private UserLibraryRatingsAndFav userLibraryRatingsAndFav;
 
     // we need an instance of musicstore
     private MusicStore musicStore;
@@ -31,17 +35,29 @@ public class LibraryModel {
 
         userLibrarySongs = new UserLibrarySongs();
         userLibraryAlbums = new UserLibraryAlbums(userLibrarySongs);
-
+        userLibraryPlaylists = new UserLibraryPlaylists();
+        userLibraryRatingsAndFav = new UserLibraryRatingsAndFav();
     }
 
+    /*
+    ===================================================================
+    ===================================================================
+
+    Song section
+
+    ===================================================================
+    ===================================================================
+     */
+
+    //adding a song to the library
+    //@pre title != null && artist != null
     public String addSong(String title, String artist) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
-            return "There are no songs of this name by this artist\n";
+            return "This song is not in the Music Store\n";
         }
 
-        userLibrarySongs.addSongToLibrary(sWeWant);
-        return "Added song " + sWeWant.getTitle() + " to the library\n";
+        return userLibrarySongs.addSongToLibrary(sWeWant);
     }
 
     // prints all songs with the same title
@@ -56,6 +72,30 @@ public class LibraryModel {
         return userLibrarySongs.songsByArtistToString(artist);
     }
 
+    //TODO
+//    public boolean addSongToLibrary(String title, String artist) {
+//        return
+//    }
+
+    public String listAllSongs(){
+        return userLibrarySongs.allSongToString();
+    }
+
+    public String listAllArtists(){
+        return userLibrarySongs.listAllArtistsToString();
+    }
+
+
+        /*
+    ===================================================================
+    ===================================================================
+
+    Album section
+
+    ===================================================================
+    ===================================================================
+     */
+
     // for an album: print the album information and a list of the songs in the
     // appropriate order
     // @pre title != null
@@ -69,107 +109,95 @@ public class LibraryModel {
         return userLibraryAlbums.albumsByArtistToString(artist);
     }
 
+    //adds album to library
+    //@pre album != null
+    public boolean addAlbumToLibrary(String album) {
+        return userLibraryAlbums.addAlbumToLibrary(album);
+    }
+
+    //returns a string of all the albums formatted nicely
+    public String listAllAlbums(){
+        return userLibraryAlbums.allAlbumsToString();
+    }
+
+    //removes a song from an album (used when removing specific songs from library)
+    //@pre title != null && artist != null
+    public void removeSongFromAlbum(String title, String artist) {
+        userLibrarySongs.removeSongFromLibrary(title, artist);
+    }
+
+        /*
+    ===================================================================
+    ===================================================================
+
+    Playlist section
+
+    ===================================================================
+    ===================================================================
+     */
+
+    // this will create a playlist in the music library
+    // @pre name != null
+    public void createPlaylist(String name) {
+        userLibraryPlaylists.createPlaylist(name);
+    }
+
+    // this function allows us to add a song to our playlist within our library
+    // @pre title != null && artist != null && playlistName != null
+    public String addSongToPlaylist(String title, String artist, String playlistName) {
+        return userLibraryPlaylists.addSongToPlaylist(title, artist, playlistName);
+    }
+
+    // this function allows us to remove a song from within a playlist that is in our library
+    // @pre title != null && artist != null && playlistName != null
+    public void removeSongFromPlaylist(String title, String artist, String playlistName) {
+        userLibraryPlaylists.removeSongFromPlaylist(title, artist, playlistName);
+    }
+
+    // prints out details of playlists based on their name
+    // @pre title != null
+    public String playlistByToNameString(String title) {
+        return userLibraryPlaylists.playlistByNameToString(title);
+    }
+
+    // returns a list og all playlists
+    public String listAllPlaylists() {
+        return userLibraryPlaylists.allPlaylistsToString();
+    }
+
+    /*
+    ===================================================================
+    ===================================================================
+
+    Favorites and Ratings section
+
+    ===================================================================
+    ===================================================================
+     */
+
     // this will be used to add songs to favorite
     // @pre title != null && artist != null
     public String addSongToFavorites(String title, String artist) {
-        // using helper function
-        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
-        if (sWeWant == null) {
-            return "There is no song with this name and by this Artist\n";
-        }
-
-        // making sure it is not already on our list
-        if (favoriteSongs.contains(sWeWant)) {
-            return "This song is already in the favorites list\n";
-        } else {
-            favoriteSongs.add(sWeWant);
-        }
-
-        // set rating to 5 if it is not already
-        if (songsByRating.containsKey(Rating.FIVE) && songsByRating.get(Rating.FIVE).contains(sWeWant)) {
-            return "This song is already rated 5 and in the favorites list.\n";
-        }
-
-        rateSong(title, artist, Rating.FIVE);
-        // if it hasnt returned by now we know it worked
-        return "Successfully added song to the favorites list\n";
+        return userLibraryRatingsAndFav.addSongToFavorites(title, artist);
     }
 
-    // this will return an arraylist of all favorites
-    public ArrayList<Song> getFavorites() {
-        if (favoriteSongs.isEmpty()) {
-            return null;
-        } else {
-            return new ArrayList<>(favoriteSongs);
-        }
+    // returns all the favorites in a nice format
+    public String getFavoritesToString() {
+        return userLibraryRatingsAndFav.getFavoritesToString();
     }
 
-    // this is the more useful function as it returns all the favorite songs in a
-    // nice format
-    public String getFavoritesString() {
-        if (getFavorites() == null) {
-            return "There are no favorites\n";
-        }
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Favorites ===\n");
-        for (Song s : favoriteSongs) {
-            sb.append(s.toString()).append("\n");
-        }
-        return sb.toString();
-    }
 
     // this function will take in details of a song and set its rating,
     // if the rating is 5 it will automatically get placed into the favorites
     // @pre title != null && artist != null && rating != null
     public String rateSong(String title, String artist, Rating rating) {
-        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
-        if (sWeWant == null) {
-            return "There is no song that has this name by this artist\n";
-        }
-        // first set the rating to input
-        sWeWant.setStars(rating);
-
-        // now add to our songs by rating hashmap
-        if (songsByRating.containsKey(rating)) {
-            songsByRating.get(rating).add(new Song(sWeWant)); // to keep encapsulation
-        } else {
-            ArrayList<Song> tmp = new ArrayList<>();
-            tmp.add(new Song(sWeWant));
-            songsByRating.put(rating, tmp); // create a new arraylist with new song obj to add to HashMap
-        }
-
-        // if rating == five automatically place in fav
-        if (rating == Rating.FIVE && !favoriteSongs.contains(sWeWant)) {
-            addSongToFavorites(title, artist);
-        }
-        return "Successfully rated song\n";
+        return userLibraryRatingsAndFav.rateSong(title, artist, rating);
     }
 
-    // This function i dont think is required by the spec but makes sense if setting
-    // ratings
-    // @pre r != null
-    public ArrayList<Song> getSongsByRating(Rating r) {
-        if (songsByRating.containsKey(r)) {
-            return new ArrayList<Song>(songsByRating.get(r));
-        } else {
-            return null;
-        }
-    }
 
-    // this function takes in a rating and returns a nice strng with all songs of
-    // that rating
+    // returns a nice string with all songs of that rating
     // @pre r != null
     public String getSongsByRatingString(Rating r) {
-        if (getSongsByRating(r) == null) {
-            return "There are no songs of this rating\n";
-        }
-        ArrayList<Song> songs = songsByRating.get(r);
-        StringBuilder sb = new StringBuilder();
-        sb.append("=== Songs of Rating " + r + " ===\n");
-        for (Song s : songs) {
-            sb.append(s.toString() + "\n");
-        }
-        return sb.toString();
+        return userLibraryRatingsAndFav.getSongsByRatingString(r);
     }
-
 }

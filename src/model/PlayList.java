@@ -31,7 +31,8 @@ public class PlayList {
     }
 
     // builds a nice string for all songs in playlist
-    public String getSongsString() {
+    @Override
+    public String toString() {
         ArrayList<Song> listOfSongs = this.getSongs();
         StringBuilder sb = new StringBuilder();
         for (Song song : listOfSongs) {
