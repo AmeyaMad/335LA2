@@ -120,6 +120,7 @@ public class UserLibraryAlbums {
         return sb.toString();
     }
 
+    //TODO test this
     public void removeSongFromAlbums(String title, String artist) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {

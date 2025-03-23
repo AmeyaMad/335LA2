@@ -20,6 +20,13 @@ public class PlayList {
         this.songs = new ArrayList<Song>();
     }
 
+    //creating playlist from an arraylist of songs, used for easy top 10 freq
+    // @pre arr != null
+    public PlayList(String name, ArrayList<Song> arr){
+        this.name=name;
+        this.songs = arr;
+    }
+
     // auto gen getter for name
     public String getName() {
         return name;
@@ -86,7 +93,9 @@ public class PlayList {
         return songs.size();
     }
 
-    public void removeLastSong() {
-        songs.removeLast();
+    public void trim() {
+        songs = (ArrayList<Song>) songs.subList(0, 11);
     }
+
+
 }

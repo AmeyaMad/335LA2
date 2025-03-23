@@ -33,7 +33,7 @@ public class LibraryModel {
     public LibraryModel() {
         userLibrarySongs = new UserLibrarySongs();
         userLibraryAlbums = new UserLibraryAlbums(userLibrarySongs);
-        userLibraryPlaylists = new UserLibraryPlaylists();
+        userLibraryPlaylists = new UserLibraryPlaylists(userLibrarySongs);
         userLibraryRatingsAndFav = new UserLibraryRatingsAndFav();
     }
 
@@ -191,5 +191,19 @@ public class LibraryModel {
     // @pre r != null
     public String getSongsByRatingString(Rating r) {
         return userLibraryRatingsAndFav.getSongsByRatingString(r);
+    }
+
+    //adds a song to the 10 most recent
+    //todo
+
+    //plays a song
+    //@pre title != null && artist != null
+    public String playSong(String title, String artist) {
+        return userLibrarySongs.playSong(title, artist);
+    }
+
+    //gets most freq songs
+    public String mostFrequentToString() {
+        return userLibraryPlaylists.mostFrequentToString();
     }
 }

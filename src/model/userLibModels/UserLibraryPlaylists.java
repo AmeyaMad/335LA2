@@ -8,30 +8,35 @@ package model.userLibModels;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserLibraryPlaylists {
-    private ArrayList<PlayList> playlistByName; // using an arraylist to store playlists
+    private Map<String, PlayList> playlistByName; // changed to use a hash map since it makes more sense
+    private PlayList mostRecent;
+    private PlayList mostFrequent;
+    UserLibrarySongs userLibrarySongs;
 
-    public UserLibraryPlaylists() {
-        playlistByName = new ArrayList<>();
-        createPlaylist("10 Most Recent");
+
+    public UserLibraryPlaylists(UserLibrarySongs u) {
+        userLibrarySongs = u;
+        playlistByName = new HashMap<>();
+        mostRecent = new PlayList("Most Recent");
+        mostFrequent = new PlayList("Most Frequent");
     }
 
     // this will create a playlist in the music library
     // @pre name != null && playlistsByName.contains(name) == false
     public void createPlaylist(String name) {
-        playlistByName.add(new PlayList(name));
+        playlistByName.put(name, new PlayList(name));
     }
+
+
 
     // this function allows us to add a song to our playlist within our library
     // @pre title != null && artist != null && playlistName != null
     public String addSongToPlaylist(String title, String artist, String playlistName) {
-        PlayList p = null;
-        for (PlayList playlist : playlistByName) {
-            if (playlist.getName().equals(playlistName)) {
-                p = playlist;
-            }
-        }
+        PlayList p = playlistByName.get(playlistName);
         if (p == null) {
             return "Playlist Not Found";
         }
@@ -49,12 +54,7 @@ public class UserLibraryPlaylists {
     // our library
     // @pre title != null && artist != null && playlistName != null
     public void removeSongFromPlaylist(String title, String artist, String playlistName) {
-        PlayList p = null;
-        for (PlayList playlist : playlistByName) {
-            if (playlist.getName().equals(playlistName)) {
-                p = playlist;
-            }
-        }
+        PlayList p = playlistByName.get(playlistName);
         if (p == null) {
             return;
         }
@@ -68,13 +68,7 @@ public class UserLibraryPlaylists {
     // adding in playlist function
     // @pre name != null
     private PlayList getPlaylistByName(String name) {
-        PlayList out = null;
-        for (PlayList playlist : playlistByName) {
-            if (playlist.getName().equals(name)) {
-                out = playlist;
-            }
-        }
-        return out;
+        return playlistByName.get(name);
     }
 
     // adding in playlist function for string
@@ -98,7 +92,7 @@ public class UserLibraryPlaylists {
     public String allPlaylistsToString() {
         StringBuilder sb = new StringBuilder();
         sb.append("=== Playlists List ===\n");
-        for (PlayList playlist : playlistByName) {
+        for (PlayList playlist : playlistByName.values()) {
             sb.append("Playlist: ");
             sb.append(playlist.getName());
             sb.append("\n");
@@ -106,16 +100,27 @@ public class UserLibraryPlaylists {
         return sb.toString();
     }
 
+    //MOST RECENT
+
     public void addToMostRecent(Song s){
-        for(PlayList playlist : playlistByName){
-            if(playlist.getName().equals("10 Most Recent")){
-                if(playlist.size() >= 10){
-                    playlist.removeLastSong();
-                }
-                playlist.addSong(s);
-            }
-        }
+        mostRecent.addSong(s);
+        mostRecent.trim();
     }
 
 
+    //MOST FREQUENT
+
+    public void addToMostFrequent(Song s){
+        mostFrequent.addSong(s);
+        mostFrequent.trim();
+    }
+
+    public void updateMostFrequent(){
+        mostFrequent = new PlayList("Most Recent", userLibrarySongs.get10MostPlayed());
+    }
+
+    public String mostFrequentToString(){
+        updateMostFrequent();
+        return mostFrequent.toString();
+    }
 }

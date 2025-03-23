@@ -260,11 +260,11 @@ public class LibraryModelTest {
         libraryModel.createPlaylist("My Playlist3");
         // System.out.print(libraryModel.listAllPlaylistsString());
         String ex = """
-                === Playlists List ===
-                Playlist: My Playlist1
-                Playlist: My Playlist2
-                Playlist: My Playlist3
-                """;
+        === Playlists List ===
+        Playlist: My Playlist1
+        Playlist: My Playlist3
+        Playlist: My Playlist2
+        """;
         assertEquals(ex, libraryModel.listAllPlaylists());
     }
 
@@ -311,5 +311,32 @@ public class LibraryModelTest {
 
         assertEquals(expected, libraryModel.listAllArtists());
     }
+
+//    @Test
+//    public void testAddingSongTop10() {
+//        libraryModel.   //TODO
+//    }
+
+    @Test
+    public void testPlayingSong(){
+        libraryModel.addAlbumToLibrary("21");
+        String ex = "===== Playing Song: I'll Be Waiting by Adele ===== \n" +
+                "                   <-      ||         ->";
+        assertEquals(ex, libraryModel.playSong("I'll Be Waiting", "Adele"));
+    }
+
+    @Test
+    public void testFrequentSongs(){
+        libraryModel.addAlbumToLibrary("21");
+        libraryModel.playSong("I'll Be Waiting", "Adele");
+        libraryModel.playSong("Rumour Has It", "Adele");
+        libraryModel.playSong("Rumour Has It", "Adele");
+
+//        libraryModel.playSong("Rumour Has It", "Adele");
+        System.out.print(libraryModel.mostFrequentToString());
+
+    }
+
+
 
 }

@@ -14,11 +14,15 @@ public class UserLibrarySongs {
     // declaring both of these hashmaps
     private HashMap<String, ArrayList<Song>> songsByTitle;
     private HashMap<String, ArrayList<Song>> songsByArtist;
+    private HashMap<Integer, ArrayList<Song>> playsToSongs;
+    private HashMap<Song, Integer> songsToPlays;
 
     // Constructor
     public UserLibrarySongs() {
         songsByTitle = new HashMap<>();
         songsByArtist = new HashMap<>();
+        playsToSongs = new HashMap<>();
+        songsToPlays = new HashMap<>();
     }
 
     // this will take in a song object and add it to both songsByTitle and
@@ -149,5 +153,63 @@ public class UserLibrarySongs {
         }
 
         return sb.toString();
+    }
+
+    public ArrayList<Song> get10MostPlayed(){
+        ArrayList<Song> songs = new ArrayList<>();
+        for(ArrayList<Song> songList : playsToSongs.values()) {
+            songs.addAll(songList);
+        }
+        if(songs.size() > 10) {
+            new ArrayList<>(songs.subList(0, 11));
+        }
+        return songs;
+    }
+
+
+    //this is the fucntion that will be called in the main model to play a song
+    //@pre title != null && artist != null
+    public String playSong(String title, String artist) {
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+        if (sWeWant == null) {
+            return "There is no song that has this name by this artist\n";
+        }
+
+        updatePlays(sWeWant);
+
+        return "===== Playing Song: " + sWeWant.getTitle() + " by " + sWeWant.getArtist() + " ===== \n" +
+            "                   <-      ||         ->";
+    }
+
+
+    //this function is a helper funciton that will updaye the amount of plays on a song S
+    //@pre s != null
+    private void updatePlays(Song s){
+        //looked up way to do this in one line because doing if checks was super clunky
+        //the way this works as far as i can tell is:
+//        if(songsToPlays.get(s) == null){
+//            songsToPlays.put(s, 0);
+//        }
+//        else{
+//            Integer currentPlays = songsToPlays.get(s);
+//        }
+        //this will get us the current amount of plays
+        Integer currentPlays = songsToPlays.getOrDefault(s, 0);
+
+        //remove the song from the previous amount of plays
+        if(currentPlays > 0){
+            ArrayList<Song> oldList = playsToSongs.get(currentPlays);
+            if(oldList != null){
+                oldList.remove(s);
+            }
+        }
+
+        //update songsToPlays
+        Integer newPlays = currentPlays +1;
+        songsToPlays.put(s, newPlays);
+
+        //update playsToSongs
+        playsToSongs.computeIfAbsent(newPlays, k -> new ArrayList<>());
+        playsToSongs.get(newPlays).add(s);
     }
 }
