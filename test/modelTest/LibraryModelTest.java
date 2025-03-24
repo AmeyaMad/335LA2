@@ -328,15 +328,152 @@ public class LibraryModelTest {
     @Test
     public void testFrequentSongs(){
         libraryModel.addAlbumToLibrary("21");
+        libraryModel.addAlbumToLibrary("19");
         libraryModel.playSong("I'll Be Waiting", "Adele");
+        libraryModel.playSong("I Found a Boy", "Adele");
+        libraryModel.playSong("I Found a Boy", "Adele");
+        libraryModel.playSong("First Love", "Adele");
         libraryModel.playSong("Rumour Has It", "Adele");
+        libraryModel.playSong("I Found a Boy", "Adele");
         libraryModel.playSong("Rumour Has It", "Adele");
+        libraryModel.playSong("I'll Be Waiting", "Adele");
+        libraryModel.playSong("I Found a Boy", "Adele");
+        libraryModel.playSong("I'll Be Waiting", "Adele");
+        libraryModel.playSong("I Found a Boy", "Adele");
+        libraryModel.playSong("First Love", "Adele");
 
-//        libraryModel.playSong("Rumour Has It", "Adele");
-        System.out.print(libraryModel.mostFrequentToString());
+
+        String ex = """
+                ==== Most Frequent Songs ===
+                Title: I Found a Boy, Artist: Adele, Album: 21
+                Title: I'll Be Waiting, Artist: Adele, Album: 21
+                Title: First Love, Artist: Adele, Album: 19
+                Title: Rumour Has It, Artist: Adele, Album: 21
+                """;
+        assertEquals(ex, libraryModel.mostFrequentToString());
+    }
+
+    @Test
+    public void testFrequentPlaylistWhenPlayingMoreThan10Songs(){
+        libraryModel.addAlbumToLibrary("21");
+        libraryModel.addAlbumToLibrary("19");
+        libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
+
+        libraryModel.playSong("City Of Angels", "Ozomatli");
+        libraryModel.playSong("After Party", "Ozomatli");
+        libraryModel.playSong("Don't Mess With The Dragons", "Ozomatli");
+        libraryModel.playSong("La Gallina", "Ozomatli");
+        libraryModel.playSong("Magnolia Soul", "Ozomatli");
+        libraryModel.playSong("Here We Gos", "Ozomatli");
+        libraryModel.playSong("La Temperatura", "Ozomatli");
+        libraryModel.playSong("Violeta", "Ozomatli");
+        libraryModel.playSong("When I Close My Eyes", "Ozomatli");
+
+        libraryModel.playSong("Someone Like You", "Adele");
+        libraryModel.playSong("Lovesong", "Adele");
+        libraryModel.playSong("Turning Tables", "Adele");
+        libraryModel.playSong("Turning Tables", "Adele");
+        libraryModel.playSong("Don't You Remember", "Adele");
+        libraryModel.playSong("I Found a Boy", "Adele");
+        libraryModel.playSong("Someone Like You", "Adele");
+        libraryModel.playSong("Someone Like You", "Adele");
+        libraryModel.playSong("Someone Like You", "Adele");
+        libraryModel.playSong("Right as Rain", "Adele");
+        libraryModel.playSong("First Love", "Adele");
+
+        String ex = """
+                ==== Most Frequent Songs ===
+                Title: Someone Like You, Artist: Adele, Album: 21
+                Title: Turning Tables, Artist: Adele, Album: 21
+                Title: First Love, Artist: Adele, Album: 19
+                Title: Right as Rain, Artist: Adele, Album: 19
+                Title: I Found a Boy, Artist: Adele, Album: 21
+                Title: Don't You Remember, Artist: Adele, Album: 21
+                Title: Lovesong, Artist: Adele, Album: 21
+                Title: When I Close My Eyes, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Violeta, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Temperatura, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                """;
+        assertEquals(ex, libraryModel.mostFrequentToString());
 
     }
 
+    @Test
+    public void testMostRecentPlaylistWhenPlayingMoreThan10Songs(){
+        libraryModel.addAlbumToLibrary("21");
+        libraryModel.addAlbumToLibrary("19");
+        libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
+
+        libraryModel.playSong("City Of Angels", "Ozomatli");
+        libraryModel.playSong("After Party", "Ozomatli");
+        libraryModel.playSong("Don't Mess With The Dragon", "Ozomatli");
+        libraryModel.playSong("La Gallina", "Ozomatli");
+        libraryModel.playSong("Magnolia Soul", "Ozomatli");
+        libraryModel.playSong("Here We Go", "Ozomatli");
+        libraryModel.playSong("La Temperatura", "Ozomatli");
+        libraryModel.playSong("Violeta", "Ozomatli");
+        libraryModel.playSong("When I Close My Eyes", "Ozomatli");
+
+        libraryModel.playSong("Someone Like You", "Adele");
+        libraryModel.playSong("Set Fire to the Rain", "Adele");
+        libraryModel.playSong("Turning Tables", "Adele");
+
+        //System.out.print(libraryModel.mostRecentToString());
+        String ex = """
+                === Most Recent Songs ===
+                Title: Turning Tables, Artist: Adele, Album: 21
+                Title: Set Fire to the Rain, Artist: Adele, Album: 21
+                Title: Someone Like You, Artist: Adele, Album: 21
+                Title: When I Close My Eyes, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Violeta, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Temperatura, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Magnolia Soul, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Gallina, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Don't Mess With The Dragon, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                """;
+        assertEquals(ex, libraryModel.mostRecentToString());
+
+    }
+
+
+    @Test
+    public void testRemovingAlbumFromLibrary(){
+        libraryModel.addAlbumToLibrary("19");
+        libraryModel.addAlbumToLibrary("Boys & Girls");
+
+        libraryModel.removeSongFromLibrary("Cold Shoulder", "Adele");
+
+        String ex = """
+                === Songs List ===
+                Title: Heavy Chevy (Bonus Track), Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Goin' to the Party, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Melt My Heart to Stone, Artist: Adele, Album: 19
+                Title: Best for Last, Artist: Adele, Album: 19
+                Title: Rise to the Sun, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Right as Rain, Artist: Adele, Album: 19
+                Title: Make You Feel My Love, Artist: Adele, Album: 19
+                Title: Daydreamer, Artist: Adele, Album: 19
+                Title: Hang Loose, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Heartbreaker, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: On Your Way, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Hold On, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Be Mine, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Tired, Artist: Adele, Album: 19
+                Title: You Ain't Alone, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: First Love, Artist: Adele, Album: 19
+                Title: I Ain't the Same, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Hometown Glory, Artist: Adele, Album: 19
+                Title: Boys & Girls, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: I Found You, Artist: Alabama Shakes, Album: Boys & Girls
+                Title: Chasing Pavements, Artist: Adele, Album: 19
+                Title: My Same, Artist: Adele, Album: 19
+                Title: Crazy for You, Artist: Adele, Album: 19
+                """;
+
+        assertEquals(ex, libraryModel.listAllSongs());
+
+    }
 
 
 }

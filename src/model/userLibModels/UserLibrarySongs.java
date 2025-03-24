@@ -8,6 +8,8 @@ package model.userLibModels;
 import model.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class UserLibrarySongs {
@@ -74,6 +76,7 @@ public class UserLibrarySongs {
         // remove song from songsByArtist
         songs = this.songsByArtist.get(artist);
         songs.remove(sWeWant);
+
 
         // TODO implement remove in the albums class to make this shit work
 
@@ -160,8 +163,9 @@ public class UserLibrarySongs {
         for(ArrayList<Song> songList : playsToSongs.values()) {
             songs.addAll(songList);
         }
+        Collections.reverse(songs);
         if(songs.size() > 10) {
-            new ArrayList<>(songs.subList(0, 11));
+            songs = new ArrayList<>(songs.subList(0, 10));
         }
         return songs;
     }
@@ -176,6 +180,7 @@ public class UserLibrarySongs {
         }
 
         updatePlays(sWeWant);
+
 
         return "===== Playing Song: " + sWeWant.getTitle() + " by " + sWeWant.getArtist() + " ===== \n" +
             "                   <-      ||         ->";

@@ -115,8 +115,9 @@ public class LibraryModel {
 
     // removes a song from an album (used when removing specific songs from library)
     // @pre title != null && artist != null
-    public void removeSongFromAlbum(String title, String artist) {
+    public void removeSongFromLibrary(String title, String artist) {
         userLibrarySongs.removeSongFromLibrary(title, artist);
+        userLibraryAlbums.removeSongFromAlbums(title, artist);
     }
 
     /*
@@ -199,11 +200,20 @@ public class LibraryModel {
     //plays a song
     //@pre title != null && artist != null
     public String playSong(String title, String artist) {
-        return userLibrarySongs.playSong(title, artist);
+       Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+       if (sWeWant == null) {
+           return "This song is not in the Music Store\n";
+       }
+       userLibraryPlaylists.addToMostRecent(sWeWant);
+       return userLibrarySongs.playSong(title, artist);
     }
 
     //gets most freq songs
     public String mostFrequentToString() {
         return userLibraryPlaylists.mostFrequentToString();
+    }
+
+    public String mostRecentToString() {
+        return userLibraryPlaylists.mostRecentToString();
     }
 }

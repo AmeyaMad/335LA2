@@ -22,8 +22,8 @@ public class PlayListTest {
     public void testAddSong() {
         pl.addSong(hereWeGo);
         pl.addSong(iAint);
-        String ex = "Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
-                "Title: I Ain't the Same, Artist: Alabama Shakes, Album: Boys & Girls\n";
+        String ex = "Title: I Ain't the Same, Artist: Alabama Shakes, Album: Boys & Girls\n" +
+                "Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon\n";
         assertEquals(ex, pl.toString());
     }
 
@@ -95,6 +95,7 @@ public class PlayListTest {
                 "Title: Heavy Chevy (Bonus Track), Artist: Alabama Shakes, Album: Boys & Girls\n";
         assertEquals(ex, pl.toString());
     }
+
 
 
 

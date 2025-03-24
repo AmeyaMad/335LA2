@@ -4,6 +4,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PlayList {
     // setting up instance variables
@@ -57,7 +59,7 @@ public class PlayList {
     // @pre s != null
     public void addSong(Song s) {
         if (!songs.contains(s)) {
-            songs.add(new Song(s)); // keeping encapsulation
+            songs.addFirst(new Song(s)); // keeping encapsulation
         }
     }
 
@@ -94,8 +96,11 @@ public class PlayList {
     }
 
     public void trim() {
-        songs = (ArrayList<Song>) songs.subList(0, 11);
+        List<Song> sublist = songs.subList(0, 10);
+        songs = new ArrayList<Song>(sublist);
     }
+
+
 
 
 }

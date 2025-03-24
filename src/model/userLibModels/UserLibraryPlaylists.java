@@ -104,23 +104,25 @@ public class UserLibraryPlaylists {
 
     public void addToMostRecent(Song s){
         mostRecent.addSong(s);
-        mostRecent.trim();
+        if(mostRecent.size() > 10){
+            mostRecent.trim();
+        }
+    }
+
+    public String mostRecentToString() {
+
+        return "=== Most Recent Songs ===\n" + mostRecent.toString();
     }
 
 
     //MOST FREQUENT
 
-    public void addToMostFrequent(Song s){
-        mostFrequent.addSong(s);
-        mostFrequent.trim();
-    }
-
     public void updateMostFrequent(){
-        mostFrequent = new PlayList("Most Recent", userLibrarySongs.get10MostPlayed());
+        mostFrequent = new PlayList("Most Frequent", userLibrarySongs.get10MostPlayed());
     }
 
     public String mostFrequentToString(){
         updateMostFrequent();
-        return mostFrequent.toString();
+        return "==== Most Frequent Songs ===\n" + mostFrequent.toString();
     }
 }
