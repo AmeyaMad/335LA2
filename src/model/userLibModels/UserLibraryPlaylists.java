@@ -67,7 +67,7 @@ public class UserLibraryPlaylists {
 
     // adding in playlist function
     // @pre name != null
-    private PlayList getPlaylistByName(String name) {
+    public PlayList getPlaylistByName(String name) {
         return playlistByName.get(name);
     }
 

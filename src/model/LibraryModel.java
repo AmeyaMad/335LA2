@@ -114,12 +114,7 @@ public class LibraryModel {
         return userLibraryAlbums.allAlbumsToString();
     }
 
-    // removes a song from an album (used when removing specific songs from library)
-    // @pre title != null && artist != null
-    public void removeSongFromLibrary(String title, String artist) {
-        userLibrarySongs.removeSongFromLibrary(title, artist);
-        userLibraryAlbums.removeSongFromAlbums(title, artist);
-    }
+
 
     /*
      * ===================================================================
@@ -199,6 +194,15 @@ public class LibraryModel {
     //adds a song to the 10 most recent
     //todo
 
+    /*
+     * ===================================================================
+     * ===================================================================
+     *
+     * New Functionality: Playing songs & Automatic Playlists
+     *
+     * ===================================================================
+     * ===================================================================
+     */
     //plays a song
     //@pre title != null && artist != null
     public String playSong(String title, String artist) {
@@ -219,6 +223,16 @@ public class LibraryModel {
         return userLibraryPlaylists.mostRecentToString();
     }
 
+    /*
+     * ===================================================================
+     * ===================================================================
+     *
+     * New Functionality: Printing all songs based on user Query
+     *
+     * ===================================================================
+     * ===================================================================
+     */
+
     public String allSongsByComparison(int byWhat) {
         ArrayList<Song> allSongs = userLibrarySongs.getAllSongs();
 
@@ -237,5 +251,60 @@ public class LibraryModel {
         }
         PlayList tmp = new PlayList("Tmp", allSongs);
         return tmp.toString();
+    }
+
+    /*
+     * ===================================================================
+     * ===================================================================
+     *
+     * New Functionality: Removing songs and albums from lib
+     *
+     * ===================================================================
+     * ===================================================================
+     */
+
+    // removes a song from an album (used when removing specific songs from library)
+    // @pre title != null && artist != null
+    public void removeSongFromLibrary(String title, String artist) {
+        userLibrarySongs.removeSongFromLibrary(title, artist);
+        userLibraryAlbums.removeSongFromAlbums(title, artist);
+    }
+
+    //removes an entire album from library
+    //@pre title != null
+    public void removeAlbumFromLibrary(String title) {
+        //todo fill in
+        userLibraryAlbums.removeAlbumFromLibrary(title);
+    }
+
+    /*
+     * ===================================================================
+     * ===================================================================
+     *
+     * New Functionality: Shuffling Library and Playlists
+     *
+     * ===================================================================
+     * ===================================================================
+     */
+
+    //returns a shuffled list of all songs, based on spec doesnt seem like we need
+    //to have a way to play these or anything, just shuffle them
+    // a but confused because it would make sense to be able to "play" a playlist
+    //or all songs in the library but that is not specified.
+    // TODO mention not sure how to test this in vide
+    public String shuffleLibraryToString(){
+        ArrayList<Song> songs = userLibrarySongs.getAllSongs();
+        Collections.shuffle(songs);
+        StringBuilder builder = new StringBuilder();
+        for (Song song : songs) {
+            builder.append(song).append("\n");
+        }
+        return builder.toString();
+    }
+
+    public String shufflePlaylistToString(String playlistName) {
+        PlayList p = userLibraryPlaylists.getPlaylistByName(playlistName);
+        p.shuffle();
+        return p.toString();
     }
 }

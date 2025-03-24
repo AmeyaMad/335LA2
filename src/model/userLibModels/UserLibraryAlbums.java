@@ -27,7 +27,7 @@ public class UserLibraryAlbums {
 
     // Returns an ArrayList of all songs with name `title`
     // @pre title != null
-    public ArrayList<Album> getAlbumsByTitle(String title) {
+    private ArrayList<Album> getAlbumsByTitle(String title) {
         if (!albumsByTitle.containsKey(title)) {
             // return an empty arraylist if does not exist
             return new ArrayList<>();
@@ -139,6 +139,16 @@ public class UserLibraryAlbums {
                 a.removeSong(sWeWant);
             }
         }
+    }
+
+    public void removeAlbumFromLibrary(String title) {
+        ArrayList<Album> albums = albumsByTitle.get(title);
+        for(Album a: albums) {
+            for (Song s : a.getSongs()) {
+                userLibrarySongs.removeSongFromLibrary(s.getTitle(), s.getArtist());
+            }
+        }
+        albumsByTitle.remove(title);
     }
 
 

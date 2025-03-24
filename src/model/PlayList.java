@@ -100,6 +100,10 @@ public class PlayList {
         songs = new ArrayList<Song>(sublist);
     }
 
+    public void shuffle(){
+        Collections.shuffle(songs);
+    }
+
 
 
 

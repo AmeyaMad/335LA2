@@ -84,6 +84,9 @@ public class UserLibrarySongs {
         // remove song from songsByArtist
         songs = this.songsByArtist.get(artist);
         songs.remove(sWeWant);
+        if (songs.isEmpty()) {
+            this.songsByArtist.remove(artist);
+        }
 
 
         // TODO implement remove in the albums class to make this shit work

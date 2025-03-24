@@ -6,6 +6,7 @@ import model.*;
 import static org.junit.Assert.*;
 
 
+
 public class LibraryModelTest {
     MusicStore musicStore = new MusicStore("albums");
     LibraryModel libraryModel = new LibraryModel();
@@ -438,7 +439,7 @@ public class LibraryModelTest {
 
 
     @Test
-    public void testRemovingAlbumFromLibrary(){
+    public void testRemovingSongsFromLibrary(){
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Boys & Girls");
 
@@ -600,5 +601,77 @@ public class LibraryModelTest {
 
     }
 
+    //todo do a test of ampty freq and recent to make sure pritns correctly
+
+
+    @Test
+    public void testRemovingAlbumFromLibrary() {
+        libraryModel.addAlbumToLibrary("19");
+        libraryModel.addAlbumToLibrary("Mission Bell");
+
+//        System.out.print(libraryModel.listAllSongs());
+//        System.out.print(libraryModel.listAllAlbums());
+//        System.out.print(libraryModel.listAllArtists());
+
+        libraryModel.removeAlbumFromLibrary("19");
+
+//        System.out.print(libraryModel.listAllSongs());
+//        System.out.print(libraryModel.listAllAlbums());
+//        System.out.print(libraryModel.listAllArtists());
+
+        String ex1 = """
+                === Songs List ===
+                Title: Flower, Artist: Amos Lee, Album: Mission Bell
+                Title: El Camino, Artist: Amos Lee, Album: Mission Bell
+                Title: Stay With Me, Artist: Amos Lee, Album: Mission Bell
+                Title: Out of the Cold, Artist: Amos Lee, Album: Mission Bell
+                Title: Windows Are Rolled Down, Artist: Amos Lee, Album: Mission Bell
+                Title: Hello Again, Artist: Amos Lee, Album: Mission Bell
+                Title: Jesus, Artist: Amos Lee, Album: Mission Bell
+                Title: Clear Blue Eyes (feat. Lucinda Williams), Artist: Amos Lee, Album: Mission Bell
+                Title: Behind Me Now, Artist: Amos Lee, Album: Mission Bell
+                Title: Cup of Sorrow, Artist: Amos Lee, Album: Mission Bell
+                """;
+
+        String ex2 = """
+                === Albums List ===
+                Album: Mission Bell, Artist: Amos Lee
+                """;
+        String ex3 = """
+                === Artists List ===
+                Amos Lee
+                """;
+
+        assertEquals(ex1, libraryModel.listAllSongs());
+    }
+
+
+    //Not sure how to unit test these since it has random elements
+    @Test
+    public void testShufflingAllSongs(){
+        libraryModel.addAlbumToLibrary("19");
+        libraryModel.addAlbumToLibrary("Coat of Many Colors");
+
+        System.out.print(libraryModel.shuffleLibraryToString());
+    }
+
+    @Test
+    public void testShufflingPlaylist(){
+        libraryModel.createPlaylist("testPlaylist");
+        libraryModel.addSongToPlaylist("She Never Met a Man (She Didn't Like)", "Dolly Parton", "testPlaylist");
+        libraryModel.addSongToPlaylist("A Better Place to Live", "Dolly Parton", "testPlaylist");
+        libraryModel.addSongToPlaylist("If I Lose My Mind", "Dolly Parton", "testPlaylist");
+        libraryModel.addSongToPlaylist("A Whisper", "Coldplay", "testPlaylist");
+        libraryModel.addSongToPlaylist("Burn One Down", "Ben Harper", "testPlaylist");
+        libraryModel.addSongToPlaylist("Power of the Gospel", "Ben Harper", "testPlaylist");
+        libraryModel.addSongToPlaylist("One Road to Freedom", "Ben Harper", "testPlaylist");
+
+
+        System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
+        libraryModel.shufflePlaylistToString("testPlaylist");
+        System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
+
+
+    }
 
 }
