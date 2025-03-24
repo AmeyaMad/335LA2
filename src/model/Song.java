@@ -4,6 +4,9 @@
 //          this class will also be immutable since we dont want to change details
 package model;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+
 public class Song {
     // setting up instance variables to hold information about the song
     // could be final but not needed since strings are already immutable
@@ -21,6 +24,7 @@ public class Song {
         this.title = title;
         this.artist = artist;
         this.album = album;
+        this.stars = Rating.NONE;
     }
 
     /*
@@ -47,9 +51,12 @@ public class Song {
         return album;
     }
 
+    public Rating getRating() {return stars;}
+
     public void setStars(Rating stars) {
         this.stars = stars;
     }
+
 
     // overriding the toString to make printing easier
     @Override
@@ -81,5 +88,46 @@ public class Song {
         String songConcat = title + artist + album;
         return songConcat.hashCode();
     }
+
+
+    //Dont fully understand the syntax and everything here, but basing it on the
+    //example given by prof
+    public static Comparator<Song> titleFirstComparator(){
+        return new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                int comp = o1.getTitle().compareTo(o2.getTitle());
+                if (comp == 0) {
+                    comp = o1.getArtist().compareTo(o2.getArtist());
+                }
+                return comp;
+            }
+        };
+    }
+
+    public static Comparator<Song> artistFirstComparator(){
+        return new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                int comp = o1.getArtist().compareTo(o2.getArtist());
+                if (comp == 0) {
+                    comp = o1.getTitle().compareTo(o2.getTitle());
+                }
+                return comp;
+            }
+        };
+    }
+
+    public static Comparator<Song> ratingFirstComparator(){
+        return new Comparator<Song>() {
+            public int compare(Song o1, Song o2) {
+                int comp = o1.getRating().compareTo(o2.getRating());
+                if (comp == 0) {
+                    comp = o1.getTitle().compareTo(o2.getTitle());
+                }
+                return comp;
+            }
+        };
+    }
+
+
 
 }

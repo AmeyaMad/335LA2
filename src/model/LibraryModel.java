@@ -11,6 +11,7 @@ import model.userLibModels.UserLibrarySongs;
 import model.userLibModels.UserLibraryPlaylists;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class LibraryModel {
     // Setting up Instance Variables... will be similar to MusicStore
@@ -185,6 +186,7 @@ public class LibraryModel {
     // if the rating is 5 it will automatically get placed into the favorites
     // @pre title != null && artist != null && rating != null
     public String rateSong(String title, String artist, Rating rating) {
+        userLibrarySongs.rateSong(title, artist, rating);
         return userLibraryRatingsAndFav.rateSong(title, artist, rating);
     }
 
@@ -215,5 +217,25 @@ public class LibraryModel {
 
     public String mostRecentToString() {
         return userLibraryPlaylists.mostRecentToString();
+    }
+
+    public String allSongsByComparison(int byWhat) {
+        ArrayList<Song> allSongs = userLibrarySongs.getAllSongs();
+
+        switch (byWhat) {
+            case 1:
+                allSongs.sort(Song.titleFirstComparator());
+                break;
+            case 2:
+                allSongs.sort(Song.artistFirstComparator());
+                break;
+            case 3:
+                allSongs.sort(Song.ratingFirstComparator());
+                break;
+            default:
+                return "Invalid option. Use 1 for title, 2 for artist, 3 for rating.\n";
+        }
+        PlayList tmp = new PlayList("Tmp", allSongs);
+        return tmp.toString();
     }
 }

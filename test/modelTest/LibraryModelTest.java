@@ -475,5 +475,130 @@ public class LibraryModelTest {
 
     }
 
+    @Test
+    public void testListingAllSongsByComparison() {
+        libraryModel.addAlbumToLibrary("A Rush of Blood to the Head");
+        libraryModel.addAlbumToLibrary("Coat of Many Colors");
+        libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
+
+        libraryModel.rateSong("The Scientist", "Coldplay", Rating.FIVE);
+        libraryModel.rateSong("Coat of Many Colors", "Dolly Parton", Rating.FOUR);
+        libraryModel.rateSong("City Of Angels", "Ozomatli", Rating.THREE);
+        libraryModel.rateSong("Here We Go", "Ozomatli", Rating.FIVE);
+        libraryModel.rateSong("Amsterdam", "Coldplay", Rating.TWO);
+        libraryModel.rateSong("If I Lose My Mind", "Dolly Parton", Rating.FIVE);
+
+
+
+//        System.out.print(libraryModel.allSongsByComparison(3));
+
+        String ex1 = """
+                Title: A Better Place to Live, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: A Rush of Blood to the Head, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: A Whisper, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: After Party, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Amsterdam, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: City Of Angels, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Clocks, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Coat of Many Colors, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Creo, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Daylight, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Don't Mess With The Dragon, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Early Morning Breeze, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: God Put a Smile Upon Your Face, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Green Eyes, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Here I Am, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: If I Lose My Mind, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: In My Place, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: La Gallina, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Temperatura, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Magnolia Soul, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: My Blue Tears, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Politik, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: She Never Met a Man (She Didn't Like), Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Mystery of the Mystery, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Scientist, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: The Way I See You, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Traveling Man, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Violeta, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Warning Sign, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: When I Close My Eyes, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                """;
+
+        String ex2 = """
+                Title: A Rush of Blood to the Head, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: A Whisper, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Amsterdam, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Clocks, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Daylight, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: God Put a Smile Upon Your Face, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Green Eyes, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: In My Place, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Politik, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: The Scientist, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Warning Sign, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: A Better Place to Live, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Coat of Many Colors, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Early Morning Breeze, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Here I Am, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: If I Lose My Mind, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: My Blue Tears, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: She Never Met a Man (She Didn't Like), Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Mystery of the Mystery, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Way I See You, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Traveling Man, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: After Party, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: City Of Angels, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Creo, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Don't Mess With The Dragon, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Gallina, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Temperatura, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Magnolia Soul, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Violeta, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: When I Close My Eyes, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                """;
+
+        String ex3 = """
+                Title: A Better Place to Live, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: A Rush of Blood to the Head, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: A Whisper, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: After Party, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Clocks, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Creo, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Daylight, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Don't Mess With The Dragon, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Early Morning Breeze, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: God Put a Smile Upon Your Face, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Green Eyes, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: Here I Am, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: In My Place, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: La Gallina, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: La Temperatura, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Magnolia Soul, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: My Blue Tears, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Politik, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: She Never Met a Man (She Didn't Like), Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Mystery of the Mystery, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Way I See You, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Traveling Man, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Violeta, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Warning Sign, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: When I Close My Eyes, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Amsterdam, Artist: Coldplay, Album: A Rush of Blood to the Head
+                Title: City Of Angels, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: Coat of Many Colors, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon
+                Title: If I Lose My Mind, Artist: Dolly Parton, Album: Coat of Many Colors
+                Title: The Scientist, Artist: Coldplay, Album: A Rush of Blood to the Head
+                """;
+
+        assertEquals(ex1, libraryModel.allSongsByComparison(1));
+        assertEquals(ex2, libraryModel.allSongsByComparison(2));
+        assertEquals(ex3, libraryModel.allSongsByComparison(3));
+
+    }
+
 
 }

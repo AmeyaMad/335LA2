@@ -61,6 +61,14 @@ public class UserLibrarySongs {
         return out;
     }
 
+    public ArrayList<Song> getAllSongs() {
+        ArrayList<Song> allSongs = new ArrayList<>();
+        for(ArrayList<Song> songs : songsByTitle.values()) {
+            allSongs.addAll(songs);
+        }
+        return allSongs;
+    }
+
     // will remove a song from user library
     // @pre title != null & artist != null
     public String removeSongFromLibrary(String title, String artist) {
@@ -216,5 +224,20 @@ public class UserLibrarySongs {
         //update playsToSongs
         playsToSongs.computeIfAbsent(newPlays, k -> new ArrayList<>());
         playsToSongs.get(newPlays).add(s);
+    }
+
+    public void rateSong(String title, String artist, Rating rating) {
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+        if (sWeWant == null) {
+            return;
+        }
+        for(ArrayList<Song> songs : songsByTitle.values()) {
+            for (Song song : songs) {
+                if (song.equals(sWeWant)) {
+                    song.setStars(rating);
+                    break;
+                }
+            }
+        }
     }
 }
