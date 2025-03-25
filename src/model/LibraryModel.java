@@ -65,6 +65,24 @@ public class LibraryModel {
         return userLibrarySongs.songsByTitleToString(title);
     }
 
+    public String requestMoreInfo(String title) {
+        ArrayList<Song> songs = userLibrarySongs.getSongsByTitle(title);
+        StringBuilder builder = new StringBuilder();
+        for(Song song : songs) {
+            builder.append("=== Album Info ===\n");
+            builder.append(HelperFunctions.getAlbumByTitle(song.getAlbum()));
+            for(Album a : userLibraryAlbums.getAlbumsByTitle(song.getAlbum())){
+                if(HelperFunctions.getAlbumByTitle(song.getAlbum()).equals(a)) {
+                    builder.append("Full Album is in Library\n");
+                    return builder.toString();
+                }
+            }
+
+            builder.append("Full Album is not in Library\n");
+        }
+        return builder.toString();
+    }
+
     // prints all songs from same artist
     // @pre artist != null
     public String getSongsByArtist(String artist) {

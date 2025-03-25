@@ -670,6 +670,99 @@ public class LibraryModelTest {
         System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
         libraryModel.shufflePlaylistToString("testPlaylist");
         System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
+    }
+
+    @Test
+    public void testingMoreInfo(){
+        libraryModel.addAlbumToLibrary("19");
+        libraryModel.addAlbumToLibrary("A Rush of Blood to the Head");
+
+        libraryModel.removeSongFromLibrary("God Put a Smile Upon Your Face", "Coldplay");
+
+        // System.out.print(libraryModel.requestMoreInfo("A Rush of Blood to the Head"));
+
+        String ex1 = """
+                === Album Info ===
+                Album: A Rush of Blood to the Head, Artist: Coldplay, Genre: Alternative
+                Politik
+                In My Place
+                God Put a Smile Upon Your Face
+                The Scientist
+                Clocks
+                Daylight
+                Green Eyes
+                Warning Sign
+                A Whisper
+                A Rush of Blood to the Head
+                Amsterdam
+                Full Album is not in Library
+                """;
+
+        assertEquals(ex1, libraryModel.requestMoreInfo("A Rush of Blood to the Head"));
+
+        libraryModel.addSong("Lullaby", "Leonard Cohen");
+        libraryModel.addSong("Lullaby", "OneRepublic");
+
+        String ex2 = """
+                === Album Info ===
+                Album: Old Ideas, Artist: Leonard Cohen, Genre: Singer/Songwriter
+                Going Home
+                Amen
+                Show Me the Place
+                Darkness
+                Anyhow
+                Crazy to Love You
+                Come Healing
+                Banjo
+                Lullaby
+                Different Sides
+                Full Album is not in Library
+                === Album Info ===
+                Album: Waking Up, Artist: OneRepublic, Genre: Rock
+                Made for You
+                All the Right Moves
+                Secrets
+                Everybody Loves Me
+                Missing Persons 1 & 2
+                Good Life
+                All This Time
+                Fear
+                Waking Up
+                Marchin On
+                Lullaby
+                Full Album is not in Library
+                """;
+
+
+        assertEquals(ex2,libraryModel.requestMoreInfo("Lullaby") );
+
+        //System.out.print(libraryModel.requestMoreInfo("Lullaby"));
+
+        String ex3 = """
+                === Album Info ===
+                Album: 19, Artist: Adele, Genre: Pop
+                Daydreamer
+                Best for Last
+                Chasing Pavements
+                Cold Shoulder
+                Crazy for You
+                Melt My Heart to Stone
+                First Love
+                Right as Rain
+                Make You Feel My Love
+                My Same
+                Tired
+                Hometown Glory
+                Full Album is in Library
+                """;
+
+        assertEquals(ex3, libraryModel.requestMoreInfo("Tired"));
+
+        //System.out.print(libraryModel.requestMoreInfo("Tired"));
+
+
+
+
 
 
     }

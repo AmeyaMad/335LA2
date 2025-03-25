@@ -6,6 +6,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Album {
     // setting up instance vars for the album
@@ -59,5 +60,18 @@ public class Album {
             out.append(s.getTitle()).append("\n");
         }
         return out.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Album album = (Album) o;
+        return title.equals(album.title) && artist.equals(album.artist) && genre.equals(album.genre) && Objects.equals(songs, album.songs);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, artist, genre, songs);
     }
 }

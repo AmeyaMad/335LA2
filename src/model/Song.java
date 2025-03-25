@@ -51,6 +51,7 @@ public class Song {
         return album;
     }
 
+
     public Rating getRating() {return stars;}
 
     public void setStars(Rating stars) {

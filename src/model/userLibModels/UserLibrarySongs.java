@@ -96,7 +96,7 @@ public class UserLibrarySongs {
 
     // Returns an ArrayList of all songs with name `title`
     // @pre title != null
-    private ArrayList<Song> getSongsByTitle(String title) {
+    public ArrayList<Song> getSongsByTitle(String title) {
         if (songsByTitle.get(title) == null) {
             return new ArrayList<>();
         }
@@ -124,6 +124,7 @@ public class UserLibrarySongs {
         }
         return sb.toString();
     }
+
 
     // string for songs by artist
     // @pre artist != null

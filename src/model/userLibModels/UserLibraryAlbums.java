@@ -27,7 +27,7 @@ public class UserLibraryAlbums {
 
     // Returns an ArrayList of all songs with name `title`
     // @pre title != null
-    private ArrayList<Album> getAlbumsByTitle(String title) {
+    public ArrayList<Album> getAlbumsByTitle(String title) {
         if (!albumsByTitle.containsKey(title)) {
             // return an empty arraylist if does not exist
             return new ArrayList<>();
