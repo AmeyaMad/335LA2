@@ -73,8 +73,9 @@ public class UserLibrarySongs {
         return out;
     }
 
-    //returns all the songs held in the library
-    //not an escaping reference because it is creating a new list to be returned each time
+    // returns all the songs held in the library
+    // not an escaping reference because it is creating a new list to be returned
+    // each time
     public ArrayList<Song> getAllSongs() {
         ArrayList<Song> allSongs = new ArrayList<>();
         for (ArrayList<Song> songs : songsByTitle.values()) {
@@ -178,7 +179,8 @@ public class UserLibrarySongs {
         return sb.toString();
     }
 
-    //returns a new arraylist of the top 10 most played songs so it can be used elsewhere
+    // returns a new arraylist of the top 10 most played songs so it can be used
+    // elsewhere
     public ArrayList<Song> get10MostPlayed() {
         ArrayList<Song> songs = new ArrayList<>();
         for (ArrayList<Song> songList : playsToSongs.values()) {
@@ -235,8 +237,9 @@ public class UserLibrarySongs {
         playsToSongs.get(newPlays).add(s);
     }
 
-    //new function since we added ratings inherent to the Song class to make the comparing easy.
-    //@pre title != null && artist != null && rating != null
+    // new function since we added ratings inherent to the Song class to make the
+    // comparing easy.
+    // @pre title != null && artist != null && rating != null
     public void rateSong(String title, String artist, Rating rating) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
@@ -252,9 +255,27 @@ public class UserLibrarySongs {
         }
     }
 
-    //returns a copy of the hashmap of songs by genre
+    // returns a copy of the hashmap of songs by genre
     public HashMap<String, ArrayList<Song>> getSongsByGenre() {
         return new HashMap<String, ArrayList<Song>>(songsByGenre);
+    }
+
+    // gets a nice string of all songs in a genre
+    public String getSongsByGenreString(String genre) {
+        HashMap<String, ArrayList<Song>> map = getSongsByGenre();
+
+        if (!map.containsKey(genre) || map.get(genre).isEmpty()) {
+            return "No songs found for genre: " + genre + "\n";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Songs in Genre: ").append(genre).append(" ===\n");
+
+        for (Song s : map.get(genre)) {
+            sb.append(s).append("\n");
+        }
+
+        return sb.toString();
     }
 
 }

@@ -68,8 +68,8 @@ public class LibraryModel {
         return userLibrarySongs.songsByTitleToString(title);
     }
 
-    //this is used for when the user wants more info about the song
-    //@pre title != null
+    // this is used for when the user wants more info about the song
+    // @pre title != null
     public String requestMoreInfo(String title) {
         ArrayList<Song> songs = userLibrarySongs.getSongsByTitle(title);
         StringBuilder builder = new StringBuilder();
@@ -94,12 +94,12 @@ public class LibraryModel {
         return userLibrarySongs.songsByArtistToString(artist);
     }
 
-    //this gives a nice string for all songs
+    // this gives a nice string for all songs
     public String listAllSongs() {
         return userLibrarySongs.allSongToString();
     }
 
-    //returns a nice string of all artists
+    // returns a nice string of all artists
     public String listAllArtists() {
         return userLibrarySongs.listAllArtistsToString();
     }
@@ -244,7 +244,7 @@ public class LibraryModel {
         return userLibraryPlaylists.mostFrequentToString();
     }
 
-    //returns the 10 most recent songs as a clean string
+    // returns the 10 most recent songs as a clean string
     public String mostRecentToString() {
         return userLibraryPlaylists.mostRecentToString();
     }
@@ -259,9 +259,8 @@ public class LibraryModel {
      * ===================================================================
      */
 
-
-    //this function returns a nice formatted string of all the songs in the library
-    //sorted as specified by the user
+    // this function returns a nice formatted string of all the songs in the library
+    // sorted as specified by the user
     public String allSongsByComparison(int byWhat) {
         ArrayList<Song> allSongs = userLibrarySongs.getAllSongs();
 
@@ -335,4 +334,9 @@ public class LibraryModel {
         p.shuffle();
         return p.toString();
     }
+
+    public String getSongsByGenreString(String genre) {
+        return userLibrarySongs.getSongsByGenreString(genre);
+    }
+
 }

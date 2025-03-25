@@ -199,7 +199,11 @@ public class View {
             System.out.println("10. List Favorite Songs");
             System.out.println("11. Create & Manage Playlists");
             System.out.println("12. Rate a Song / Mark as Favorite");
-            System.out.println("13. Back to Main Menu");
+            System.out.println("13. Play a Song");
+            System.out.println("14. View Most Recently Played Songs");
+            System.out.println("15. View Most Frequently Played Songs");
+            System.out.println("16. Explore Advanced Features"); // NEW
+            System.out.println("17. Back to Main Menu"); // Moved down
             System.out.print("Enter your choice: ");
 
             int choice = getValidIntInput();
@@ -242,11 +246,140 @@ public class View {
                     rateOrFavoriteSong();
                     break;
                 case 13:
-                    return; // Go back to the main menu
+                    playASong();
+                    break;
+                case 14:
+                    viewMostRecent();
+                    break;
+                case 15:
+                    viewMostFrequent();
+                    break;
+                case 16:
+                    showAdvancedFeatureMenu(); // NEW
+                    break;
+                case 17:
+                    return; // Go back to Main Menu
+
                 default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 13.");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 17.");
             }
         }
+    }
+
+    private void showAdvancedFeatureMenu() {
+        while (true) {
+            System.out.println("\n=== Advanced Features ===");
+            System.out.println("1. List Songs Sorted by...");
+            System.out.println("2. Remove a Song from Library");
+            System.out.println("3. Remove an Album from Library");
+            System.out.println("4. Shuffle All Songs in Library");
+            System.out.println("5. Shuffle a Playlist");
+            System.out.println("6. Search Songs by Genre");
+            System.out.println("7. Back to User Library Menu");
+
+            int choice = getValidIntInput(); // You already have this helper method
+
+            switch (choice) {
+                case 1:
+                    listSortedSongs();
+                    break;
+                case 2:
+                    removeSongFromLibrary();
+                    break;
+                case 3:
+                    removeAlbumFromLibrary();
+                    break;
+                case 4:
+                    shuffleLibrary();
+                    break;
+                case 5:
+                    shufflePlaylist();
+                    break;
+                case 6:
+                    searchSongsByGenre();
+                    break;
+                case 7:
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 6.");
+            }
+        }
+    }
+
+    private void searchSongsByGenre() {
+        System.out.print("\nEnter genre to search: ");
+        scanner.nextLine(); // Consume newline
+        String genre = scanner.nextLine();
+
+        System.out.println(lib.getSongsByGenreString(genre));
+    }
+
+    private void shufflePlaylist() {
+        System.out.print("\nEnter playlist name to shuffle: ");
+        scanner.nextLine(); // Consume newline
+        String playlistName = scanner.nextLine();
+
+        System.out.println(lib.shufflePlaylistToString(playlistName));
+    }
+
+    private void shuffleLibrary() {
+        System.out.println("\n=== Shuffled Songs in Library ===");
+        System.out.println(lib.shuffleLibraryToString());
+    }
+
+    private void removeSongFromLibrary() {
+        System.out.print("\nEnter song title to remove: ");
+        scanner.nextLine(); // Consume newline
+        String title = scanner.nextLine();
+
+        System.out.print("Enter artist name: ");
+        String artist = scanner.nextLine();
+
+        lib.removeSongFromLibrary(title, artist); // no return value
+        System.out.println("Attempted to remove '" + title + "' by " + artist + " from your library.");
+    }
+
+    private void removeAlbumFromLibrary() {
+        System.out.print("\nEnter album title to remove: ");
+        scanner.nextLine(); // Consume newline
+        String albumTitle = scanner.nextLine();
+
+        lib.removeAlbumFromLibrary(albumTitle); // no return value
+        System.out.println("Attempted to remove album '" + albumTitle + "' from your library.");
+    }
+
+    private void listSortedSongs() {
+        System.out.println("\n=== Sort Songs By ===");
+        System.out.println("1. Title");
+        System.out.println("2. Artist");
+        System.out.println("3. Rating");
+        System.out.print("Enter your choice: ");
+
+        int sortChoice = getValidIntInput();
+
+        String result = lib.allSongsByComparison(sortChoice); // Already implemented in LibraryModel
+        System.out.println(result);
+    }
+
+    private void playASong() {
+        System.out.print("\nEnter song title to play: ");
+        scanner.nextLine(); // Consume newline
+        String title = scanner.nextLine();
+
+        System.out.print("Enter artist name: ");
+        String artist = scanner.nextLine();
+
+        String result = lib.playSong(title, artist);
+        System.out.println(result);
+    }
+
+    private void viewMostRecent() {
+        System.out.println(lib.mostRecentToString());
+    }
+
+    private void viewMostFrequent() {
+        System.out.println(lib.mostFrequentToString());
     }
 
     // SEARCHING
@@ -258,6 +391,14 @@ public class View {
 
         String result = lib.getSongsByTitle(title);
         System.out.println(result);
+
+        System.out.print("Would you like to see album info for this song? (yes/no): ");
+        String response = scanner.nextLine().trim().toLowerCase();
+
+        if (response.equals("yes") || response.equals("y")) {
+            String albumInfo = lib.requestMoreInfo(title); // This method is already implemented
+            System.out.println(albumInfo);
+        }
     }
 
     private void searchLibrarySongByArtist() {
