@@ -51,7 +51,7 @@ public class UserLibraryAlbums {
         }
         StringBuilder sb = new StringBuilder();
         for (Album a : getAlbumsByTitle(title)) {
-            sb.append(a.toString()).append("\n");
+            sb.append(a.toString());
         }
         return sb.toString();
     }
@@ -148,5 +148,44 @@ public class UserLibraryAlbums {
         }
         albumsByTitle.remove(title);
     }
+
+    //rhis can be called from library model when needed
+    public void addSongToUserAlbum(Song song) {
+        String albumTitle = song.getAlbum();
+        String artist = song.getArtist();
+
+        //using same computeIfAbsent as other places
+        ArrayList<Album> userAlbums = albumsByTitle.computeIfAbsent(albumTitle, k -> new ArrayList<>());
+        Album userAlbum = null;
+
+        Album aFromMS = HelperFunctions.getAlbumByTitle(albumTitle);
+        String genre = aFromMS.getGenre();
+
+        // since we are doing partial albums now, we can look to see if it is already there
+        for (Album a : userAlbums) {
+            if (a.getArtist().equals(artist)) {
+                userAlbum = a;
+                break;
+            }
+        }
+
+        // otherwise make a new one
+        if (userAlbum == null) {
+            ArrayList<Song> initSongs = new ArrayList<>();
+            initSongs.add(song);
+            Album newAlbum = new Album(albumTitle, artist, genre, initSongs);
+            userAlbums.add(newAlbum);
+
+            // need to add to albums by artist
+            albumsByArtist.computeIfAbsent(artist, k -> new ArrayList<>());
+            albumsByArtist.get(artist).add(newAlbum);
+        } else {
+            //just add a song to the album already there
+            if (!userAlbum.getSongs().contains(song)) {
+                userAlbum.getSongs().add(song);
+            }
+        }
+    }
+
 
 }

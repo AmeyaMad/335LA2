@@ -55,8 +55,9 @@ public class LibraryModel {
         if (sWeWant == null) {
             return "This song is not in the Music Store\n";
         }
-
-        return userLibrarySongs.addSongToLibrary(sWeWant);
+        String out = userLibrarySongs.addSongToLibrary(sWeWant);
+        userLibraryAlbums.addSongToUserAlbum(sWeWant);
+        return out;
     }
 
     // prints all songs with the same title

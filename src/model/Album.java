@@ -2,7 +2,6 @@
 //  author: Ameya Madhugiri
 //  purpose: This class will represent an album and will hold all the songs within it along with
 //              the genre and the artist
-//  This class is also immutable
 package model;
 
 import java.util.ArrayList;
@@ -25,7 +24,9 @@ public class Album {
         this.title = title;
         this.artist = artist;
         this.genre = genre;
-        this.songs = new ArrayList<Song>(songs); // making sure there is no escaping references
+        this.songs = songs;
+        //need espcaing references here, otherwise there is a lot of clunk in this class,
+        //when it is a lot easier, and cleaner to do it elsewhere
     }
 
     // auto generated getters for all fields
@@ -42,7 +43,7 @@ public class Album {
     }
 
     public ArrayList<Song> getSongs() {
-        return new ArrayList<Song>(songs);
+        return songs;
     }
 
     public String removeSong(Song song) {

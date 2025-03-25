@@ -85,7 +85,6 @@ public class LibraryModelTest {
                 Uh Oh
                 Wintertime
                 Just a Little Bit
-
                 """;
         assertEquals(ex, libraryModel.getAlbumsByTitle("Begin Again"));
     }
@@ -753,4 +752,15 @@ public class LibraryModelTest {
 
     }
 
+
+    @Test
+    public void testPartialAlbums(){
+        libraryModel.addSong("A Whisper", "Coldplay");
+//        System.out.print(libraryModel.getAlbumsByTitle("A Rush of Blood to the Head"));
+
+        String ex1 = "Album: A Rush of Blood to the Head, Artist: Coldplay, Genre: Alternative\n" +
+                "A Whisper\n";
+        assertEquals(ex1, libraryModel.getAlbumsByTitle("A Rush of Blood to the Head"));
+
+    }
 }
