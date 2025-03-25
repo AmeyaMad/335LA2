@@ -68,11 +68,11 @@ public class LibraryModel {
     public String requestMoreInfo(String title) {
         ArrayList<Song> songs = userLibrarySongs.getSongsByTitle(title);
         StringBuilder builder = new StringBuilder();
-        for(Song song : songs) {
+        for (Song song : songs) {
             builder.append("=== Album Info ===\n");
             builder.append(HelperFunctions.getAlbumByTitle(song.getAlbum()));
-            for(Album a : userLibraryAlbums.getAlbumsByTitle(song.getAlbum())){
-                if(HelperFunctions.getAlbumByTitle(song.getAlbum()).equals(a)) {
+            for (Album a : userLibraryAlbums.getAlbumsByTitle(song.getAlbum())) {
+                if (HelperFunctions.getAlbumByTitle(song.getAlbum()).equals(a)) {
                     builder.append("Full Album is in Library\n");
                     return builder.toString();
                 }
@@ -88,7 +88,6 @@ public class LibraryModel {
     public String getSongsByArtist(String artist) {
         return userLibrarySongs.songsByArtistToString(artist);
     }
-
 
     public String listAllSongs() {
         return userLibrarySongs.allSongToString();
@@ -131,8 +130,6 @@ public class LibraryModel {
     public String listAllAlbums() {
         return userLibraryAlbums.allAlbumsToString();
     }
-
-
 
     /*
      * ===================================================================
@@ -209,8 +206,8 @@ public class LibraryModel {
         return userLibraryRatingsAndFav.getSongsByRatingString(r);
     }
 
-    //adds a song to the 10 most recent
-    //todo
+    // adds a song to the 10 most recent
+    // todo
 
     /*
      * ===================================================================
@@ -221,18 +218,18 @@ public class LibraryModel {
      * ===================================================================
      * ===================================================================
      */
-    //plays a song
-    //@pre title != null && artist != null
+    // plays a song
+    // @pre title != null && artist != null
     public String playSong(String title, String artist) {
-       Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
-       if (sWeWant == null) {
-           return "This song is not in the Music Store\n";
-       }
-       userLibraryPlaylists.addToMostRecent(sWeWant);
-       return userLibrarySongs.playSong(title, artist);
+        Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
+        if (sWeWant == null) {
+            return "This song is not in the Music Store\n";
+        }
+        userLibraryPlaylists.addToMostRecent(sWeWant);
+        return userLibrarySongs.playSong(title, artist);
     }
 
-    //gets most freq songs
+    // gets most freq songs
     public String mostFrequentToString() {
         return userLibraryPlaylists.mostFrequentToString();
     }
@@ -288,10 +285,10 @@ public class LibraryModel {
         userLibraryAlbums.removeSongFromAlbums(title, artist);
     }
 
-    //removes an entire album from library
-    //@pre title != null
+    // removes an entire album from library
+    // @pre title != null
     public void removeAlbumFromLibrary(String title) {
-        //todo fill in
+        // todo fill in
         userLibraryAlbums.removeAlbumFromLibrary(title);
     }
 
@@ -305,12 +302,12 @@ public class LibraryModel {
      * ===================================================================
      */
 
-    //returns a shuffled list of all songs, based on spec doesnt seem like we need
-    //to have a way to play these or anything, just shuffle them
+    // returns a shuffled list of all songs, based on spec doesnt seem like we need
+    // to have a way to play these or anything, just shuffle them
     // a but confused because it would make sense to be able to "play" a playlist
-    //or all songs in the library but that is not specified.
+    // or all songs in the library but that is not specified.
     // TODO mention not sure how to test this in vide
-    public String shuffleLibraryToString(){
+    public String shuffleLibraryToString() {
         ArrayList<Song> songs = userLibrarySongs.getAllSongs();
         Collections.shuffle(songs);
         StringBuilder builder = new StringBuilder();

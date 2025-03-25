@@ -51,7 +51,7 @@ public class AlbumTest {
     public void testRemoveSong() {
         Song s = new Song("A Whisper", "Coldplay", "A Rush of Blood to the Head");
         a.removeSong(s);
-//        System.out.print(a.toString());
+        // System.out.print(a.toString());
         String ex = "Album: A Rush of Blood to the Head, Artist: Coldplay, Genre: Alternative\n" +
                 "Politik\n" +
                 "In My Place\n" +
@@ -68,7 +68,7 @@ public class AlbumTest {
     }
 
     @Test
-    public void testingRemovingSongWhenNotThere(){
+    public void testingRemovingSongWhenNotThere() {
         Song s = new Song("Boom", "Baya", "A Rush of Blood to the Head");
         assertEquals("Song not removed", a.removeSong(s));
     }

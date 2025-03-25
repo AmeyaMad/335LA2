@@ -51,13 +51,13 @@ public class Song {
         return album;
     }
 
-
-    public Rating getRating() {return stars;}
+    public Rating getRating() {
+        return stars;
+    }
 
     public void setStars(Rating stars) {
         this.stars = stars;
     }
-
 
     // overriding the toString to make printing easier
     @Override
@@ -90,10 +90,9 @@ public class Song {
         return songConcat.hashCode();
     }
 
-
-    //Dont fully understand the syntax and everything here, but basing it on the
-    //example given by prof
-    public static Comparator<Song> titleFirstComparator(){
+    // Dont fully understand the syntax and everything here, but basing it on the
+    // example given by prof
+    public static Comparator<Song> titleFirstComparator() {
         return new Comparator<Song>() {
             public int compare(Song o1, Song o2) {
                 int comp = o1.getTitle().compareTo(o2.getTitle());
@@ -105,7 +104,7 @@ public class Song {
         };
     }
 
-    public static Comparator<Song> artistFirstComparator(){
+    public static Comparator<Song> artistFirstComparator() {
         return new Comparator<Song>() {
             public int compare(Song o1, Song o2) {
                 int comp = o1.getArtist().compareTo(o2.getArtist());
@@ -117,7 +116,7 @@ public class Song {
         };
     }
 
-    public static Comparator<Song> ratingFirstComparator(){
+    public static Comparator<Song> ratingFirstComparator() {
         return new Comparator<Song>() {
             public int compare(Song o1, Song o2) {
                 int comp = o1.getRating().compareTo(o2.getRating());
@@ -128,7 +127,5 @@ public class Song {
             }
         };
     }
-
-
 
 }

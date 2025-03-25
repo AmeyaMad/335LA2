@@ -16,8 +16,6 @@ public class UserLibraryAlbums {
     private HashMap<String, ArrayList<Album>> albumsByArtist;
     private UserLibrarySongs userLibrarySongs;
 
-
-
     // Constructor
     public UserLibraryAlbums(UserLibrarySongs ulSongs) {
         albumsByTitle = new HashMap<>();
@@ -122,7 +120,7 @@ public class UserLibraryAlbums {
         return sb.toString();
     }
 
-    //TODO test this
+    // TODO test this
     public void removeSongFromAlbums(String title, String artist) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
@@ -143,13 +141,12 @@ public class UserLibraryAlbums {
 
     public void removeAlbumFromLibrary(String title) {
         ArrayList<Album> albums = albumsByTitle.get(title);
-        for(Album a: albums) {
+        for (Album a : albums) {
             for (Song s : a.getSongs()) {
                 userLibrarySongs.removeSongFromLibrary(s.getTitle(), s.getArtist());
             }
         }
         albumsByTitle.remove(title);
     }
-
 
 }

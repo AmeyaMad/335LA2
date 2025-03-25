@@ -17,7 +17,6 @@ public class UserLibraryPlaylists {
     private PlayList mostFrequent;
     UserLibrarySongs userLibrarySongs;
 
-
     public UserLibraryPlaylists(UserLibrarySongs u) {
         userLibrarySongs = u;
         playlistByName = new HashMap<>();
@@ -30,8 +29,6 @@ public class UserLibraryPlaylists {
     public void createPlaylist(String name) {
         playlistByName.put(name, new PlayList(name));
     }
-
-
 
     // this function allows us to add a song to our playlist within our library
     // @pre title != null && artist != null && playlistName != null
@@ -77,7 +74,7 @@ public class UserLibraryPlaylists {
         if (getPlaylistByName(title) == null) {
             return "There are no playlists by this title\n";
         }
-        if(getPlaylistByName(title).isEmpty()){
+        if (getPlaylistByName(title).isEmpty()) {
             return "Playlist is Empty";
         }
         StringBuilder sb = new StringBuilder();
@@ -100,11 +97,11 @@ public class UserLibraryPlaylists {
         return sb.toString();
     }
 
-    //MOST RECENT
+    // MOST RECENT
 
-    public void addToMostRecent(Song s){
+    public void addToMostRecent(Song s) {
         mostRecent.addSong(s);
-        if(mostRecent.size() > 10){
+        if (mostRecent.size() > 10) {
             mostRecent.trim();
         }
     }
@@ -114,14 +111,13 @@ public class UserLibraryPlaylists {
         return "=== Most Recent Songs ===\n" + mostRecent.toString();
     }
 
+    // MOST FREQUENT
 
-    //MOST FREQUENT
-
-    public void updateMostFrequent(){
+    public void updateMostFrequent() {
         mostFrequent = new PlayList("Most Frequent", userLibrarySongs.get10MostPlayed());
     }
 
-    public String mostFrequentToString(){
+    public String mostFrequentToString() {
         updateMostFrequent();
         return "==== Most Frequent Songs ===\n" + mostFrequent.toString();
     }

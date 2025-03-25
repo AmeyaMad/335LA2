@@ -5,8 +5,6 @@ import model.*;
 
 import static org.junit.Assert.*;
 
-
-
 public class LibraryModelTest {
     MusicStore musicStore = new MusicStore("albums");
     LibraryModel libraryModel = new LibraryModel();
@@ -87,7 +85,7 @@ public class LibraryModelTest {
                 Uh Oh
                 Wintertime
                 Just a Little Bit
-                
+
                 """;
         assertEquals(ex, libraryModel.getAlbumsByTitle("Begin Again"));
     }
@@ -115,7 +113,7 @@ public class LibraryModelTest {
                 My Same
                 Tired
                 Hometown Glory
-                
+
                 Album: 21, Artist: Adele, Genre: Pop
                 Rolling in the Deep
                 Rumour Has It
@@ -129,7 +127,7 @@ public class LibraryModelTest {
                 Lovesong
                 Someone Like You
                 I Found a Boy
-                
+
                 """;
         assertEquals(ex, libraryModel.getAlbumsByArtist("Adele"));
     }
@@ -261,11 +259,11 @@ public class LibraryModelTest {
         libraryModel.createPlaylist("My Playlist3");
         // System.out.print(libraryModel.listAllPlaylistsString());
         String ex = """
-        === Playlists List ===
-        Playlist: My Playlist1
-        Playlist: My Playlist3
-        Playlist: My Playlist2
-        """;
+                === Playlists List ===
+                Playlist: My Playlist1
+                Playlist: My Playlist3
+                Playlist: My Playlist2
+                """;
         assertEquals(ex, libraryModel.listAllPlaylists());
     }
 
@@ -313,13 +311,13 @@ public class LibraryModelTest {
         assertEquals(expected, libraryModel.listAllArtists());
     }
 
-//    @Test
-//    public void testAddingSongTop10() {
-//        libraryModel.   //TODO
-//    }
+    // @Test
+    // public void testAddingSongTop10() {
+    // libraryModel. //TODO
+    // }
 
     @Test
-    public void testPlayingSong(){
+    public void testPlayingSong() {
         libraryModel.addAlbumToLibrary("21");
         String ex = "===== Playing Song: I'll Be Waiting by Adele ===== \n" +
                 "                   <-      ||         ->";
@@ -327,7 +325,7 @@ public class LibraryModelTest {
     }
 
     @Test
-    public void testFrequentSongs(){
+    public void testFrequentSongs() {
         libraryModel.addAlbumToLibrary("21");
         libraryModel.addAlbumToLibrary("19");
         libraryModel.playSong("I'll Be Waiting", "Adele");
@@ -343,7 +341,6 @@ public class LibraryModelTest {
         libraryModel.playSong("I Found a Boy", "Adele");
         libraryModel.playSong("First Love", "Adele");
 
-
         String ex = """
                 ==== Most Frequent Songs ===
                 Title: I Found a Boy, Artist: Adele, Album: 21
@@ -355,7 +352,7 @@ public class LibraryModelTest {
     }
 
     @Test
-    public void testFrequentPlaylistWhenPlayingMoreThan10Songs(){
+    public void testFrequentPlaylistWhenPlayingMoreThan10Songs() {
         libraryModel.addAlbumToLibrary("21");
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
@@ -400,7 +397,7 @@ public class LibraryModelTest {
     }
 
     @Test
-    public void testMostRecentPlaylistWhenPlayingMoreThan10Songs(){
+    public void testMostRecentPlaylistWhenPlayingMoreThan10Songs() {
         libraryModel.addAlbumToLibrary("21");
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
@@ -419,7 +416,7 @@ public class LibraryModelTest {
         libraryModel.playSong("Set Fire to the Rain", "Adele");
         libraryModel.playSong("Turning Tables", "Adele");
 
-        //System.out.print(libraryModel.mostRecentToString());
+        // System.out.print(libraryModel.mostRecentToString());
         String ex = """
                 === Most Recent Songs ===
                 Title: Turning Tables, Artist: Adele, Album: 21
@@ -437,9 +434,8 @@ public class LibraryModelTest {
 
     }
 
-
     @Test
-    public void testRemovingSongsFromLibrary(){
+    public void testRemovingSongsFromLibrary() {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Boys & Girls");
 
@@ -489,9 +485,7 @@ public class LibraryModelTest {
         libraryModel.rateSong("Amsterdam", "Coldplay", Rating.TWO);
         libraryModel.rateSong("If I Lose My Mind", "Dolly Parton", Rating.FIVE);
 
-
-
-//        System.out.print(libraryModel.allSongsByComparison(3));
+        // System.out.print(libraryModel.allSongsByComparison(3));
 
         String ex1 = """
                 Title: A Better Place to Live, Artist: Dolly Parton, Album: Coat of Many Colors
@@ -601,23 +595,22 @@ public class LibraryModelTest {
 
     }
 
-    //todo do a test of ampty freq and recent to make sure pritns correctly
-
+    // todo do a test of ampty freq and recent to make sure pritns correctly
 
     @Test
     public void testRemovingAlbumFromLibrary() {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Mission Bell");
 
-//        System.out.print(libraryModel.listAllSongs());
-//        System.out.print(libraryModel.listAllAlbums());
-//        System.out.print(libraryModel.listAllArtists());
+        // System.out.print(libraryModel.listAllSongs());
+        // System.out.print(libraryModel.listAllAlbums());
+        // System.out.print(libraryModel.listAllArtists());
 
         libraryModel.removeAlbumFromLibrary("19");
 
-//        System.out.print(libraryModel.listAllSongs());
-//        System.out.print(libraryModel.listAllAlbums());
-//        System.out.print(libraryModel.listAllArtists());
+        // System.out.print(libraryModel.listAllSongs());
+        // System.out.print(libraryModel.listAllAlbums());
+        // System.out.print(libraryModel.listAllArtists());
 
         String ex1 = """
                 === Songs List ===
@@ -645,10 +638,9 @@ public class LibraryModelTest {
         assertEquals(ex1, libraryModel.listAllSongs());
     }
 
-
-    //Not sure how to unit test these since it has random elements
+    // Not sure how to unit test these since it has random elements
     @Test
-    public void testShufflingAllSongs(){
+    public void testShufflingAllSongs() {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Coat of Many Colors");
 
@@ -656,7 +648,7 @@ public class LibraryModelTest {
     }
 
     @Test
-    public void testShufflingPlaylist(){
+    public void testShufflingPlaylist() {
         libraryModel.createPlaylist("testPlaylist");
         libraryModel.addSongToPlaylist("She Never Met a Man (She Didn't Like)", "Dolly Parton", "testPlaylist");
         libraryModel.addSongToPlaylist("A Better Place to Live", "Dolly Parton", "testPlaylist");
@@ -666,20 +658,20 @@ public class LibraryModelTest {
         libraryModel.addSongToPlaylist("Power of the Gospel", "Ben Harper", "testPlaylist");
         libraryModel.addSongToPlaylist("One Road to Freedom", "Ben Harper", "testPlaylist");
 
-
         System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
         libraryModel.shufflePlaylistToString("testPlaylist");
         System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
     }
 
     @Test
-    public void testingMoreInfo(){
+    public void testingMoreInfo() {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("A Rush of Blood to the Head");
 
         libraryModel.removeSongFromLibrary("God Put a Smile Upon Your Face", "Coldplay");
 
-        // System.out.print(libraryModel.requestMoreInfo("A Rush of Blood to the Head"));
+        // System.out.print(libraryModel.requestMoreInfo("A Rush of Blood to the
+        // Head"));
 
         String ex1 = """
                 === Album Info ===
@@ -733,10 +725,9 @@ public class LibraryModelTest {
                 Full Album is not in Library
                 """;
 
+        assertEquals(ex2, libraryModel.requestMoreInfo("Lullaby"));
 
-        assertEquals(ex2,libraryModel.requestMoreInfo("Lullaby") );
-
-        //System.out.print(libraryModel.requestMoreInfo("Lullaby"));
+        // System.out.print(libraryModel.requestMoreInfo("Lullaby"));
 
         String ex3 = """
                 === Album Info ===
@@ -758,12 +749,7 @@ public class LibraryModelTest {
 
         assertEquals(ex3, libraryModel.requestMoreInfo("Tired"));
 
-        //System.out.print(libraryModel.requestMoreInfo("Tired"));
-
-
-
-
-
+        // System.out.print(libraryModel.requestMoreInfo("Tired"));
 
     }
 

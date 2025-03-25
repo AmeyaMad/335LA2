@@ -64,10 +64,13 @@ public class Album {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Album album = (Album) o;
-        return title.equals(album.title) && artist.equals(album.artist) && genre.equals(album.genre) && Objects.equals(songs, album.songs);
+        return title.equals(album.title) && artist.equals(album.artist) && genre.equals(album.genre)
+                && Objects.equals(songs, album.songs);
     }
 
     @Override

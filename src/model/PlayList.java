@@ -22,10 +22,10 @@ public class PlayList {
         this.songs = new ArrayList<Song>();
     }
 
-    //creating playlist from an arraylist of songs, used for easy top 10 freq
+    // creating playlist from an arraylist of songs, used for easy top 10 freq
     // @pre arr != null
-    public PlayList(String name, ArrayList<Song> arr){
-        this.name=name;
+    public PlayList(String name, ArrayList<Song> arr) {
+        this.name = name;
         this.songs = arr;
     }
 
@@ -69,8 +69,8 @@ public class PlayList {
         songs.remove(s);
     }
 
-    //adds albums to playlist
-    //@pre title != null
+    // adds albums to playlist
+    // @pre title != null
     public String addAlbum(String title) {
         Album a = HelperFunctions.getAlbumByTitle(title);
         if (a == null) {
@@ -85,12 +85,12 @@ public class PlayList {
         return "Album added";
     }
 
-    //returns if the playlist is empty or not
+    // returns if the playlist is empty or not
     public boolean isEmpty() {
         return songs.isEmpty();
     }
 
-    //returns size of playlist
+    // returns size of playlist
     public int size() {
         return songs.size();
     }
@@ -100,11 +100,8 @@ public class PlayList {
         songs = new ArrayList<Song>(sublist);
     }
 
-    public void shuffle(){
+    public void shuffle() {
         Collections.shuffle(songs);
     }
-
-
-
 
 }
