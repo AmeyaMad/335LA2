@@ -673,7 +673,7 @@ public class View {
         }
 
         // Convert to Rating enum
-        Rating rating = Rating.values()[ratingValue - 1]; // Assuming Rating enum is 0-indexed
+        Rating rating = Rating.values()[ratingValue]; // Assuming Rating enum is 0-indexed
 
         // Call the LibraryModel function
         String result = lib.rateSong(title, artist, rating);

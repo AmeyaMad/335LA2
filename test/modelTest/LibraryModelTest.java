@@ -327,6 +327,7 @@ public class LibraryModelTest {
     public void testFrequentSongs() {
         libraryModel.addAlbumToLibrary("21");
         libraryModel.addAlbumToLibrary("19");
+
         libraryModel.playSong("I'll Be Waiting", "Adele");
         libraryModel.playSong("I Found a Boy", "Adele");
         libraryModel.playSong("I Found a Boy", "Adele");
@@ -833,5 +834,29 @@ public class LibraryModelTest {
     @Test
     public void addNAAlbumToLibrary() {
         assertFalse(libraryModel.addAlbumToLibrary("RANDOM"));
+    }
+
+    @Test
+    public void testGetStringByGenre(){
+        libraryModel.addAlbumToLibrary("A Rush of Blood to the Head");
+        libraryModel.addAlbumToLibrary("Old Ideas");
+        libraryModel.addAlbumToLibrary("Don't Mess With the Dragon");
+
+        //System.out.print(libraryModel.getSongsByGenreString("Rock"));
+
+        String ex =
+                "=== Songs in Genre: Rock ===\n" +
+                "Song - Title: City Of Angels, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: After Party, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: Don't Mess With The Dragon, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: La Gallina, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: Magnolia Soul, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: Here We Go, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: La Temperatura, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: Violeta, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: Creo, Artist: Ozomatli, Album: Don't Mess With the Dragon\n" +
+                "Song - Title: When I Close My Eyes, Artist: Ozomatli, Album: Don't Mess With the Dragon\n";
+        assertEquals(ex, libraryModel.getSongsByGenreString("Rock"));
+        assertEquals("No songs found for genre: RANDOM\n", libraryModel.getSongsByGenreString("RANDOM"));
     }
 }

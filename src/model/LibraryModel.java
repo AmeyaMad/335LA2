@@ -313,6 +313,9 @@ public class LibraryModel {
      * ===================================================================
      * ===================================================================
      */
+    public String getSongsByGenreString(String genre) {
+        return userLibrarySongs.getSongsByGenreString(genre);
+    }
 
     // returns a shuffled list of all songs, based on spec doesnt seem like we need
     // to have a way to play these or anything, just shuffle them
@@ -328,15 +331,13 @@ public class LibraryModel {
         }
         return builder.toString();
     }
-
+    //prints a nice string of the shuffled playlist
     public String shufflePlaylistToString(String playlistName) {
         PlayList p = userLibraryPlaylists.getPlaylistByName(playlistName);
         p.shuffle();
         return p.toString();
     }
 
-    public String getSongsByGenreString(String genre) {
-        return userLibrarySongs.getSongsByGenreString(genre);
-    }
+
 
 }
