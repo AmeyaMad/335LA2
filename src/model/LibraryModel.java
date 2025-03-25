@@ -12,6 +12,7 @@ import model.userLibModels.UserLibraryPlaylists;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 public class LibraryModel {
     // Setting up Instance Variables... will be similar to MusicStore
@@ -57,6 +58,7 @@ public class LibraryModel {
         }
         String out = userLibrarySongs.addSongToLibrary(sWeWant);
         userLibraryAlbums.addSongToUserAlbum(sWeWant);
+        userLibraryPlaylists.updatePlaylists();
         return out;
     }
 
@@ -124,7 +126,15 @@ public class LibraryModel {
     // adds album to library
     // @pre album != null
     public boolean addAlbumToLibrary(String album) {
-        return userLibraryAlbums.addAlbumToLibrary(album);
+        Album a = HelperFunctions.getAlbumByTitle(album);
+        if (a == null) {
+            return false;
+        }
+
+        boolean out = userLibraryAlbums.addAlbumToLibrary(album);
+        userLibraryPlaylists.updatePlaylists();
+        return out;
+
     }
 
     // returns a string of all the albums formatted nicely
@@ -198,7 +208,10 @@ public class LibraryModel {
     // @pre title != null && artist != null && rating != null
     public String rateSong(String title, String artist, Rating rating) {
         userLibrarySongs.rateSong(title, artist, rating);
-        return userLibraryRatingsAndFav.rateSong(title, artist, rating);
+        String out = userLibraryRatingsAndFav.rateSong(title, artist, rating);
+        HashMap<Rating, ArrayList<Song>> map = userLibraryRatingsAndFav.getSongsByRating();
+        userLibraryPlaylists.updateRatingPlaylists(map);
+        return out;
     }
 
     // returns a nice string with all songs of that rating

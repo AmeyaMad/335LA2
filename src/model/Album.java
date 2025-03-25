@@ -25,8 +25,9 @@ public class Album {
         this.artist = artist;
         this.genre = genre;
         this.songs = songs;
-        //need espcaing references here, otherwise there is a lot of clunk in this class,
-        //when it is a lot easier, and cleaner to do it elsewhere
+        // need espcaing references here, otherwise there is a lot of clunk in this
+        // class,
+        // when it is a lot easier, and cleaner to do it elsewhere
     }
 
     // auto generated getters for all fields

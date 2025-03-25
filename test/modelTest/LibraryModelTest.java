@@ -752,15 +752,71 @@ public class LibraryModelTest {
 
     }
 
-
     @Test
-    public void testPartialAlbums(){
+    public void testPartialAlbums() {
         libraryModel.addSong("A Whisper", "Coldplay");
-//        System.out.print(libraryModel.getAlbumsByTitle("A Rush of Blood to the Head"));
+        // System.out.print(libraryModel.getAlbumsByTitle("A Rush of Blood to the
+        // Head"));
 
         String ex1 = "Album: A Rush of Blood to the Head, Artist: Coldplay, Genre: Alternative\n" +
                 "A Whisper\n";
         assertEquals(ex1, libraryModel.getAlbumsByTitle("A Rush of Blood to the Head"));
 
+    }
+
+    @Test
+    public void testAutoPlaylist() {
+        libraryModel.addAlbumToLibrary("A Rush of Blood to the Head");
+        // System.out.print(libraryModel.listAllPlaylists());
+
+        String ex1 = "=== Playlists List ===\n" +
+                "Playlist: Genre: Alternative\n";
+        assertEquals(ex1, libraryModel.listAllPlaylists());
+
+        libraryModel.addSong("Melt My Heart to Stone", "Adele");
+        libraryModel.addSong("First Love", "Adele");
+        libraryModel.addSong("Right as Rain", "Adele");
+        libraryModel.addSong("Make You Feel My Love", "Adele");
+        libraryModel.addSong("My Same", "Adele");
+        libraryModel.addSong("Tired", "Adele");
+        libraryModel.addSong("Hometown Glory", "Adele");
+        libraryModel.addSong("He Won't Go", "Adele");
+        libraryModel.addSong("Take It All", "Adele");
+        libraryModel.addSong("I'll Be Waiting", "Adele");
+        libraryModel.addSong("One and Only", "Adele");
+        libraryModel.addSong("Lovesong", "Adele");
+        libraryModel.addSong("Someone Like You", "Adele");
+        libraryModel.addSong("I Found a Boy", "Adele");
+
+        // System.out.print(libraryModel.listAllPlaylists());
+        String ex2 = "=== Playlists List ===\n" +
+                "Playlist: Genre: Alternative\n" +
+                "Playlist: Genre: Pop\n";
+        assertEquals(ex2, libraryModel.listAllPlaylists());
+    }
+
+    @Test
+    public void testAutoPlaylist2() {
+        libraryModel.addAlbumToLibrary("A Rush of Blood to the Head");
+        libraryModel.rateSong("A Rush of Blood to the Head", "Coldplay", Rating.FIVE);
+        libraryModel.rateSong("Warning Sign", "Coldplay", Rating.FOUR);
+
+        // System.out.print(libraryModel.listAllPlaylists());
+        String ex1 = "=== Playlists List ===\n" +
+                "Playlist: Favorite Songs\n" +
+                "Playlist: Genre: Alternative\n" +
+                "Playlist: Top Rated\n";
+        assertEquals(ex1, libraryModel.listAllPlaylists());
+
+        // System.out.print(libraryModel.playlistByToNameString("Favorite Songs"));
+        String ex2 = "=== Playlist: Favorite Songs ===\n" +
+                "Song - Title: A Rush of Blood to the Head, Artist: Coldplay, Album: A Rush of Blood to the Head\n";
+        assertEquals(ex2, libraryModel.playlistByToNameString("Favorite Songs"));
+
+        // System.out.print(libraryModel.playlistByToNameString("Top Rated"));
+        String ex3 = "=== Playlist: Top Rated ===\n" +
+                "Song - Title: A Rush of Blood to the Head, Artist: Coldplay, Album: A Rush of Blood to the Head\n" +
+                "Song - Title: Warning Sign, Artist: Coldplay, Album: A Rush of Blood to the Head\n";
+        assertEquals(ex3, libraryModel.playlistByToNameString("Top Rated"));
     }
 }

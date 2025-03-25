@@ -104,4 +104,7 @@ public class PlayList {
         Collections.shuffle(songs);
     }
 
+    public void setSongs(ArrayList<Song> songList) {
+        this.songs = new ArrayList<>(songList);
+    }
 }

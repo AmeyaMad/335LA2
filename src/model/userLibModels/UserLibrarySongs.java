@@ -7,10 +7,7 @@ package model.userLibModels;
 
 import model.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.*;
 
 public class UserLibrarySongs {
     // declaring both of these hashmaps
@@ -18,6 +15,7 @@ public class UserLibrarySongs {
     private HashMap<String, ArrayList<Song>> songsByArtist;
     private HashMap<Integer, ArrayList<Song>> playsToSongs;
     private HashMap<Song, Integer> songsToPlays;
+    private HashMap<String, ArrayList<Song>> songsByGenre;
 
     // Constructor
     public UserLibrarySongs() {
@@ -25,6 +23,7 @@ public class UserLibrarySongs {
         songsByArtist = new HashMap<>();
         playsToSongs = new HashMap<>();
         songsToPlays = new HashMap<>();
+        songsByGenre = new HashMap<>();
     }
 
     // this will take in a song object and add it to both songsByTitle and
@@ -56,6 +55,18 @@ public class UserLibrarySongs {
         songsByArtist.computeIfAbsent(song.getArtist(), k -> new ArrayList<>());
         if (!songsByArtist.get(song.getArtist()).contains(song)) {
             songsByArtist.get(song.getArtist()).add(song);
+        } else {
+            out = "This song is already in the list\n";
+        }
+
+        Album a = HelperFunctions.getAlbumByTitle(song.getAlbum());
+        if (a == null) {
+            return "The song does not belong to an album";
+        }
+        String genre = a.getGenre();
+        songsByGenre.computeIfAbsent(genre, k -> new ArrayList<>());
+        if (!songsByGenre.get(genre).contains(song)) {
+            songsByGenre.get(genre).add(song);
         } else {
             out = "This song is already in the list\n";
         }
@@ -241,4 +252,10 @@ public class UserLibrarySongs {
             }
         }
     }
+
+    public HashMap<String, ArrayList<Song>> getSongsByGenre() {
+        HashMap<String, ArrayList<Song>> out = new HashMap<String, ArrayList<Song>>(songsByGenre);
+        return out;
+    }
+
 }

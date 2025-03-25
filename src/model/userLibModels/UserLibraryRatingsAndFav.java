@@ -125,4 +125,9 @@ public class UserLibraryRatingsAndFav {
         return sb.toString();
     }
 
+    public HashMap<Rating, ArrayList<Song>> getSongsByRating() {
+        HashMap<Rating, ArrayList<Song>> out = new HashMap<>(songsByRating);
+        return out;
+    }
+
 }

@@ -22,6 +22,7 @@ public class UserLibraryPlaylists {
         playlistByName = new HashMap<>();
         mostRecent = new PlayList("Most Recent");
         mostFrequent = new PlayList("Most Frequent");
+
     }
 
     // this will create a playlist in the music library
@@ -120,5 +121,58 @@ public class UserLibraryPlaylists {
     public String mostFrequentToString() {
         updateMostFrequent();
         return "==== Most Frequent Songs ===\n" + mostFrequent.toString();
+    }
+
+    public void updatePlaylists() {
+        HashMap<String, ArrayList<Song>> map = userLibrarySongs.getSongsByGenre();
+        for (String key : map.keySet()) {
+            ArrayList<Song> songList = map.get(key);
+            if (songList.size() > 10) {
+                String playlistName = "Genre: " + key;
+
+                // if we already have a playlist of this genre
+                if (playlistByName.containsKey(playlistName)) {
+                    PlayList p = playlistByName.get(playlistName);
+                    p.setSongs(songList);
+                }
+                // otherwise we make a new playlist
+                else {
+                    PlayList newPlaylist = new PlayList(playlistName, songList);
+                    playlistByName.put(playlistName, newPlaylist);
+                }
+            }
+        }
+    }
+
+    public void updateRatingPlaylists(HashMap<Rating, ArrayList<Song>> map) {
+        ArrayList<Song> favoriteSongs = new ArrayList<>();
+        ArrayList<Song> topRatedSongs = new ArrayList<>();
+
+        // songs with only rating of 5
+        if (map.containsKey(Rating.FIVE)) {
+            favoriteSongs.addAll(map.get(Rating.FIVE));
+            topRatedSongs.addAll(map.get(Rating.FIVE));
+        }
+
+        // adding songs with rating of 4 to top rated
+        if (map.containsKey(Rating.FOUR)) {
+            topRatedSongs.addAll(map.get(Rating.FOUR));
+        }
+
+        // make or update the playlists
+        if (playlistByName.containsKey("Favorite Songs")) {
+            playlistByName.get("Favorite Songs").setSongs(favoriteSongs);
+        } else {
+            playlistByName.put("Favorite Songs", new PlayList("Favorite Songs", favoriteSongs));
+        }
+
+        // same for top ranked
+        // Create or update Top Rated playlist
+        if (playlistByName.containsKey("Top Rated")) {
+            playlistByName.get("Top Rated").setSongs(topRatedSongs);
+        } else {
+            playlistByName.put("Top Rated", new PlayList("Top Rated", topRatedSongs));
+        }
+
     }
 }
