@@ -120,7 +120,8 @@ public class UserLibraryAlbums {
         return sb.toString();
     }
 
-    // TODO test this
+    //This fucntion will remove songs form albums, since from now on we have partial albums
+    //@pre title != null && artist != null
     public void removeSongFromAlbums(String title, String artist) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
@@ -139,6 +140,8 @@ public class UserLibraryAlbums {
         }
     }
 
+    //this removes an entire album from the library
+    //@pre title != null
     public void removeAlbumFromLibrary(String title) {
         ArrayList<Album> albums = albumsByTitle.get(title);
         for (Album a : albums) {
@@ -149,7 +152,8 @@ public class UserLibraryAlbums {
         albumsByTitle.remove(title);
     }
 
-    // rhis can be called from library model when needed
+    // this adds the partial album to the library whenever a single song is added
+    //@pre song != null
     public void addSongToUserAlbum(Song song) {
         String albumTitle = song.getAlbum();
         String artist = song.getArtist();

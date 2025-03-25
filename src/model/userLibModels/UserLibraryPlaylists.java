@@ -100,6 +100,8 @@ public class UserLibraryPlaylists {
 
     // MOST RECENT
 
+    //This function adds a Song s to the most recent playlist
+    //@pre s != null
     public void addToMostRecent(Song s) {
         mostRecent.addSong(s);
         if (mostRecent.size() > 10) {
@@ -107,23 +109,26 @@ public class UserLibraryPlaylists {
         }
     }
 
+    //returns a nicely formatted string of most recent songs
     public String mostRecentToString() {
-
         return "=== Most Recent Songs ===\n" + mostRecent.toString();
     }
 
     // MOST FREQUENT
 
+    //this is called every time a song is played to update the most freq played songs
     public void updateMostFrequent() {
         mostFrequent = new PlayList("Most Frequent", userLibrarySongs.get10MostPlayed());
     }
 
+    //returns a nicely formatted string of most Freq songs
     public String mostFrequentToString() {
         updateMostFrequent();
         return "==== Most Frequent Songs ===\n" + mostFrequent.toString();
     }
 
-    public void updatePlaylists() {
+    //Used to update the automatic genre playlists
+    public void updateGenrePlaylists() {
         HashMap<String, ArrayList<Song>> map = userLibrarySongs.getSongsByGenre();
         for (String key : map.keySet()) {
             ArrayList<Song> songList = map.get(key);
@@ -144,6 +149,7 @@ public class UserLibraryPlaylists {
         }
     }
 
+    //used to update the automatic ratings based playlists
     public void updateRatingPlaylists(HashMap<Rating, ArrayList<Song>> map) {
         ArrayList<Song> favoriteSongs = new ArrayList<>();
         ArrayList<Song> topRatedSongs = new ArrayList<>();

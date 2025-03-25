@@ -58,7 +58,7 @@ public class LibraryModel {
         }
         String out = userLibrarySongs.addSongToLibrary(sWeWant);
         userLibraryAlbums.addSongToUserAlbum(sWeWant);
-        userLibraryPlaylists.updatePlaylists();
+        userLibraryPlaylists.updateGenrePlaylists();
         return out;
     }
 
@@ -68,6 +68,8 @@ public class LibraryModel {
         return userLibrarySongs.songsByTitleToString(title);
     }
 
+    //this is used for when the user wants more info about the song
+    //@pre title != null
     public String requestMoreInfo(String title) {
         ArrayList<Song> songs = userLibrarySongs.getSongsByTitle(title);
         StringBuilder builder = new StringBuilder();
@@ -92,10 +94,12 @@ public class LibraryModel {
         return userLibrarySongs.songsByArtistToString(artist);
     }
 
+    //this gives a nice string for all songs
     public String listAllSongs() {
         return userLibrarySongs.allSongToString();
     }
 
+    //returns a nice string of all artists
     public String listAllArtists() {
         return userLibrarySongs.listAllArtistsToString();
     }
@@ -126,13 +130,8 @@ public class LibraryModel {
     // adds album to library
     // @pre album != null
     public boolean addAlbumToLibrary(String album) {
-        Album a = HelperFunctions.getAlbumByTitle(album);
-        if (a == null) {
-            return false;
-        }
-
         boolean out = userLibraryAlbums.addAlbumToLibrary(album);
-        userLibraryPlaylists.updatePlaylists();
+        userLibraryPlaylists.updateGenrePlaylists();
         return out;
 
     }
@@ -220,9 +219,6 @@ public class LibraryModel {
         return userLibraryRatingsAndFav.getSongsByRatingString(r);
     }
 
-    // adds a song to the 10 most recent
-    // todo
-
     /*
      * ===================================================================
      * ===================================================================
@@ -248,6 +244,7 @@ public class LibraryModel {
         return userLibraryPlaylists.mostFrequentToString();
     }
 
+    //returns the 10 most recent songs as a clean string
     public String mostRecentToString() {
         return userLibraryPlaylists.mostRecentToString();
     }
@@ -262,6 +259,9 @@ public class LibraryModel {
      * ===================================================================
      */
 
+
+    //this function returns a nice formatted string of all the songs in the library
+    //sorted as specified by the user
     public String allSongsByComparison(int byWhat) {
         ArrayList<Song> allSongs = userLibrarySongs.getAllSongs();
 
@@ -302,7 +302,6 @@ public class LibraryModel {
     // removes an entire album from library
     // @pre title != null
     public void removeAlbumFromLibrary(String title) {
-        // todo fill in
         userLibraryAlbums.removeAlbumFromLibrary(title);
     }
 
@@ -320,7 +319,7 @@ public class LibraryModel {
     // to have a way to play these or anything, just shuffle them
     // a but confused because it would make sense to be able to "play" a playlist
     // or all songs in the library but that is not specified.
-    // TODO mention not sure how to test this in vide
+    // TODO mention not sure how to test this in video
     public String shuffleLibraryToString() {
         ArrayList<Song> songs = userLibrarySongs.getAllSongs();
         Collections.shuffle(songs);

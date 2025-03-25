@@ -592,9 +592,19 @@ public class LibraryModelTest {
         assertEquals(ex2, libraryModel.allSongsByComparison(2));
         assertEquals(ex3, libraryModel.allSongsByComparison(3));
 
+        assertEquals("Invalid option. Use 1 for title, 2 for artist, 3 for rating.\n", libraryModel.allSongsByComparison(4));
     }
 
-    // todo do a test of ampty freq and recent to make sure pritns correctly
+    @Test
+    public void testEmptyFreqAndRecentPlaylists() {
+        String ex1 = "==== Most Frequent Songs ===\n";
+        String ex2 = "=== Most Recent Songs ===\n";
+        assertEquals(ex1, libraryModel.mostFrequentToString());
+        assertEquals(ex2, libraryModel.mostRecentToString());
+//        System.out.print(libraryModel.mostFrequentToString());
+//        System.out.print(libraryModel.mostRecentToString());
+    }
+
 
     @Test
     public void testRemovingAlbumFromLibrary() {
@@ -643,7 +653,7 @@ public class LibraryModelTest {
         libraryModel.addAlbumToLibrary("19");
         libraryModel.addAlbumToLibrary("Coat of Many Colors");
 
-        System.out.print(libraryModel.shuffleLibraryToString());
+        //libraryModel.shuffleLibraryToString();
     }
 
     @Test
@@ -657,9 +667,9 @@ public class LibraryModelTest {
         libraryModel.addSongToPlaylist("Power of the Gospel", "Ben Harper", "testPlaylist");
         libraryModel.addSongToPlaylist("One Road to Freedom", "Ben Harper", "testPlaylist");
 
-        System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
-        libraryModel.shufflePlaylistToString("testPlaylist");
-        System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
+        //System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
+        //libraryModel.shufflePlaylistToString("testPlaylist");
+       // System.out.println(libraryModel.playlistByToNameString("testPlaylist"));
     }
 
     @Test
@@ -818,5 +828,10 @@ public class LibraryModelTest {
                 "Song - Title: A Rush of Blood to the Head, Artist: Coldplay, Album: A Rush of Blood to the Head\n" +
                 "Song - Title: Warning Sign, Artist: Coldplay, Album: A Rush of Blood to the Head\n";
         assertEquals(ex3, libraryModel.playlistByToNameString("Top Rated"));
+    }
+
+    @Test
+    public void addNAAlbumToLibrary() {
+        assertFalse(libraryModel.addAlbumToLibrary("RANDOM"));
     }
 }

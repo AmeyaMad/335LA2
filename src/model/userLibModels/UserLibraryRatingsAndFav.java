@@ -125,9 +125,10 @@ public class UserLibraryRatingsAndFav {
         return sb.toString();
     }
 
+    //this returns the whole hashmaps of rating so that it can be used elsewhere
+    //reducing escaping references as much as possible here
     public HashMap<Rating, ArrayList<Song>> getSongsByRating() {
-        HashMap<Rating, ArrayList<Song>> out = new HashMap<>(songsByRating);
-        return out;
+        return new HashMap<>(songsByRating);
     }
 
 }

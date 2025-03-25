@@ -73,6 +73,8 @@ public class UserLibrarySongs {
         return out;
     }
 
+    //returns all the songs held in the library
+    //not an escaping reference because it is creating a new list to be returned each time
     public ArrayList<Song> getAllSongs() {
         ArrayList<Song> allSongs = new ArrayList<>();
         for (ArrayList<Song> songs : songsByTitle.values()) {
@@ -83,10 +85,10 @@ public class UserLibrarySongs {
 
     // will remove a song from user library
     // @pre title != null & artist != null
-    public String removeSongFromLibrary(String title, String artist) {
+    public void removeSongFromLibrary(String title, String artist) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
-            return "There is no song that has this name by this artist in the music store\n";
+            return;
         }
 
         // remove from songsByTitle
@@ -99,10 +101,6 @@ public class UserLibrarySongs {
         if (songs.isEmpty()) {
             this.songsByArtist.remove(artist);
         }
-
-        // TODO implement remove in the albums class to make this shit work
-
-        return "TEMP";
     }
 
     // Returns an ArrayList of all songs with name `title`
@@ -180,6 +178,7 @@ public class UserLibrarySongs {
         return sb.toString();
     }
 
+    //returns a new arraylist of the top 10 most played songs so it can be used elsewhere
     public ArrayList<Song> get10MostPlayed() {
         ArrayList<Song> songs = new ArrayList<>();
         for (ArrayList<Song> songList : playsToSongs.values()) {
@@ -199,9 +198,7 @@ public class UserLibrarySongs {
         if (sWeWant == null) {
             return "There is no song that has this name by this artist\n";
         }
-
         updatePlays(sWeWant);
-
         return "===== Playing Song: " + sWeWant.getTitle() + " by " + sWeWant.getArtist() + " ===== \n" +
                 "                   <-      ||         ->";
     }
@@ -238,6 +235,8 @@ public class UserLibrarySongs {
         playsToSongs.get(newPlays).add(s);
     }
 
+    //new function since we added ratings inherent to the Song class to make the comparing easy.
+    //@pre title != null && artist != null && rating != null
     public void rateSong(String title, String artist, Rating rating) {
         Song sWeWant = HelperFunctions.getSongByTitleAndArtist(title, artist);
         if (sWeWant == null) {
@@ -253,9 +252,9 @@ public class UserLibrarySongs {
         }
     }
 
+    //returns a copy of the hashmap of songs by genre
     public HashMap<String, ArrayList<Song>> getSongsByGenre() {
-        HashMap<String, ArrayList<Song>> out = new HashMap<String, ArrayList<Song>>(songsByGenre);
-        return out;
+        return new HashMap<String, ArrayList<Song>>(songsByGenre);
     }
 
 }
